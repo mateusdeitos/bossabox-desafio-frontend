@@ -10,10 +10,11 @@ const Button: React.FC<ButtonProps> = ({
   children,
   loading,
   styleProps,
+  disabled,
   ...rest
 }) => {
   return (
-    <Container classProps={styleProps} {...rest}>
+    <Container disabled={disabled || loading} classProps={styleProps} {...rest}>
       {loading ? 'Carregando...' : children}
     </Container>
   );

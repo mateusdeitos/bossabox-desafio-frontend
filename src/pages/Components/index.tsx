@@ -9,6 +9,7 @@ import Card from '../../components/Card';
 const ComponentsPage: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const [isButtonDisabled, setDisableButtons] = useState(true);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
   const handleSubmit = (data: { input: string }) => {
     alert(JSON.stringify(data));
   };
@@ -32,6 +33,19 @@ const ComponentsPage: React.FC = () => {
       <Card />
       <Form ref={formRef} onSubmit={handleSubmit}>
         <Input name="input" label="label" type="text" />
+        <Button
+          styleProps={{ order: 'primary', type: 'neutral' }}
+          type="submit"
+          loading={isButtonLoading}
+          onClick={() => {
+            setIsButtonLoading(true);
+            setTimeout(() => {
+              setIsButtonLoading(false);
+            }, 3000);
+          }}
+        >
+          LoadingButton
+        </Button>
       </Form>
       <span
         style={{

@@ -1,6 +1,8 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
+import api from '../../services/api';
 import Button from '../Button';
 import CustomIcon from '../Icon';
 import {
@@ -20,6 +22,7 @@ interface ICardProps {
   tags: string[];
   tagsToHighlight?: string[];
   delayAnimation: number;
+  reloadList(): void;
 }
 
 const Card: React.FC<ICardProps> = ({
@@ -30,14 +33,23 @@ const Card: React.FC<ICardProps> = ({
   tags,
   tagsToHighlight = [],
   delayAnimation,
+  reloadList,
 }) => {
+  const deleteTool = async (id: number) => {
+    await api.delete(`/v1/tools/${id}`);
+    reloadList();
+  };
+
   return (
     <Container key={id} delayAnimation={delayAnimation}>
       <CardTitleContainer>
         <CardTitle target="_blank" rel="noreferrer" href={url}>
           {title}
         </CardTitle>
-        <Button styleProps={{ order: 'quartiary', type: 'danger' }}>
+        <Button
+          styleProps={{ order: 'terciary', type: 'danger' }}
+          onClick={() => deleteTool(id)}
+        >
           <CustomIcon icon="remove" />
           remove
         </Button>

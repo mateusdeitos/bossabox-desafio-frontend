@@ -7,9 +7,10 @@ import Input from '../../components/TextInput';
 import PageTemplate from '../../components/PageTemplate';
 import { ActionsContainer, CardsContainer } from './styles';
 import Button from '../../components/Button';
-import Card from '../../components/Card';
+import Card from '../../components/ToolCard';
 import Checkbox from '../../components/CheckboxInput/index';
-import useApi from '../../hooks/useApi';
+import useApi, { RequestData } from '../../hooks/useApi';
+import NewToolModal from '../NewToolModal';
 
 interface Tool {
   id: number;
@@ -40,13 +41,14 @@ interface FormData {
 
 const Home: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const [modalOpen, setModalOpen] = useState(false);
   const [queryParams, setQueryParams] = useState<QueryParams>({});
   const [tools, setTools] = useState<Tool[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [tagsToHighlight, setTagsToHighlight] = useState<string[]>([]);
   const { status, data, error } = useApi<ToolsApiResponse, QueryParams>({
-    endpoint: 'TOOLS',
     method: 'get',
+    endpoint: 'TOOLS',
     queryParams,
   });
 
@@ -86,6 +88,11 @@ const Home: React.FC = () => {
 
   return (
     <PageTemplate>
+      <NewToolModal
+        isOpen={modalOpen}
+        setIsOpen={setModalOpen}
+        onSubmit={submitFormManually}
+      />
       <Header />
       <ActionsContainer>
         <Form ref={formRef} onSubmit={dados => handleSubmit(dados)}>
@@ -98,7 +105,10 @@ const Home: React.FC = () => {
             onChange={submitFormManually}
           />
         </Form>
-        <Button styleProps={{ order: 'terciary', type: 'neutral' }}>
+        <Button
+          styleProps={{ order: 'terciary', type: 'neutral' }}
+          onClick={() => setModalOpen(true)}
+        >
           <CustomIcon icon="add" />
           Add
         </Button>
@@ -115,6 +125,7 @@ const Home: React.FC = () => {
                 tags={tags.split(',')}
                 tagsToHighlight={tagsToHighlight}
                 delayAnimation={delay}
+                reloadList={submitFormManually}
                 {...rest}
               />
             ))}

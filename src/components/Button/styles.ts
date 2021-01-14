@@ -224,10 +224,16 @@ const stylesObj = {
     `,
   },
 };
+const buttonWidth = {
+  normal: 175,
+  expanded: 360,
+};
 export type ButtonStylePropsType = {
   order: keyof typeof stylesObj;
   type: keyof typeof stylesObj[keyof typeof stylesObj];
+  width?: keyof typeof buttonWidth;
 };
+
 interface ButtonStyleProps {
   classProps?: ButtonStylePropsType;
 }
@@ -235,8 +241,7 @@ export const Container = styled.button<ButtonStyleProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  width: 175px;
+  justify-content: center;
   padding: 13.5px 26px;
   text-align: center;
   font-family: 'Source Sans Pro';
@@ -256,6 +261,10 @@ export const Container = styled.button<ButtonStyleProps>`
   ${({ classProps }) => {
     const order = classProps?.order || 'primary';
     const type = classProps?.type || 'neutral';
-    return `${stylesObj[order][type]}`;
+    const width = classProps?.width || 'normal';
+    return css`
+      ${stylesObj[order][type]};
+      width: ${buttonWidth[width]}px;
+    `;
   }}
 `;

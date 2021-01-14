@@ -7,10 +7,22 @@ interface ContainerProps {
   isRequired: boolean;
 }
 
-export const Container = styled.div`
+interface InputProps {
+  fillWidth: boolean;
+}
+
+export const Container = styled.div<InputProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  & + & {
+    margin-top: 20px;
+  }
+  ${({ fillWidth }) =>
+    fillWidth &&
+    css`
+      width: 100%;
+    `}
 `;
 
 export const Label = styled.label`
@@ -22,7 +34,7 @@ export const Label = styled.label`
   opacity: 1;
   margin-bottom: 20.75px;
 `;
-export const InputContainer = styled.div<ContainerProps>`
+export const InputContainer = styled.div<ContainerProps & InputProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -32,6 +44,11 @@ export const InputContainer = styled.div<ContainerProps>`
   border-radius: 5px;
   color: #170c3a;
   padding: 12.5px 20px;
+  ${({ fillWidth }) =>
+    fillWidth &&
+    css`
+      width: 100%;
+    `}
   img {
     width: 20px;
     height: 20px;
@@ -73,14 +90,15 @@ export const InputContainer = styled.div<ContainerProps>`
     background-color: transparent;
     border: unset;
     display: flex;
+    width: 100%;
   }
+`;
 
-  span {
-    font-size: 18px;
-    font-family: 'Source Sans Pro', sans-serif;
-    margin-top: 8px;
-    align-self: flex-end;
-    color: #f95e5a;
-    letter-spacing: 0.36px;
-  }
+export const Error = styled.span`
+  font-size: 18px;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin-top: 8px;
+  margin-left: auto;
+  color: #f95e5a;
+  letter-spacing: 0.36px;
 `;

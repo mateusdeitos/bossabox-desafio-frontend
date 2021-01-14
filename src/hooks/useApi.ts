@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import api from '../services/api';
 
 enum EStatusFetch {
@@ -25,7 +25,7 @@ interface Response<T> {
   error?: string;
 }
 
-interface RequestData<QueryParams, BodyParams> {
+export interface RequestData<QueryParams, BodyParams> {
   method: keyof typeof EApiMethods;
   endpoint: keyof typeof EEndpoints;
   body?: BodyParams;
@@ -83,7 +83,6 @@ const useApi = <T, QueryParams = void, BodyParams = void>(
         dispatch({ type: 'failure', payload: error.message });
       }
     };
-
     fetchApi();
   }, [body, endpoint, method, queryParams]);
 

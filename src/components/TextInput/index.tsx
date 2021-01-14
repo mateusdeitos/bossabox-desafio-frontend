@@ -7,19 +7,21 @@ import React, {
   useState,
 } from 'react';
 
-import { Container, InputContainer, Label } from './styles';
+import { Container, InputContainer, Label, Error } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label?: string;
   disableBrowserAutoComplete?: boolean;
   isRequired?: boolean;
+  fillWidth?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
   name,
   label,
   isRequired = false,
+  fillWidth = false,
   disableBrowserAutoComplete = false,
   children,
   ...rest
@@ -54,13 +56,14 @@ const Input: React.FC<InputProps> = ({
   }, [fieldName, registerField]);
 
   return (
-    <Container>
+    <Container fillWidth={fillWidth}>
       {label && <Label htmlFor={name}>{label}</Label>}
       <InputContainer
         isRequired={isRequired}
         isFilled={isFilled}
         isFocused={isFocused}
         hasError={!!error}
+        fillWidth={fillWidth}
       >
         {children}
         <input
@@ -73,7 +76,7 @@ const Input: React.FC<InputProps> = ({
           {...rest}
         />
       </InputContainer>
-      {error && <span>{error}</span>}
+      <Error>{error}</Error>
     </Container>
   );
 };

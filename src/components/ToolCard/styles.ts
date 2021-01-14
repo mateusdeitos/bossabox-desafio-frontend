@@ -21,8 +21,13 @@ export const Container = styled.div<{ delayAnimation: number }>`
   border-radius: 5px;
   padding: 16px;
   opacity: 0;
+  transition: all 0.4s;
   & + & {
     margin-top: 16px;
+  }
+
+  &:hover {
+    box-shadow: 0px 20px 25px #0000001a;
   }
 
   // eslint-disable-next-line prettier/prettier

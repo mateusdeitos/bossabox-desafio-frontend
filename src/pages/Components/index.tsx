@@ -2,9 +2,10 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useRef, useState } from 'react';
-import Input from '../../components/Input';
+import Input from '../../components/TextInput';
 import Button from '../../components/Button/index';
 import Card from '../../components/Card';
+import CustomIcon from '../../components/Icon';
 
 const ComponentsPage: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
@@ -30,9 +31,11 @@ const ComponentsPage: React.FC = () => {
       <h4>Header 4</h4>
       <h5>Header 5</h5>
       <p>Olá</p>
-      <Card />
+      {/* <Card /> */}
       <Form ref={formRef} onSubmit={handleSubmit}>
-        <Input name="input" label="label" type="text" />
+        <Input name="input" label="label" type="text">
+          <CustomIcon icon="search" />
+        </Input>
         <Button
           styleProps={{ order: 'primary', type: 'neutral' }}
           type="submit"

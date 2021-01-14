@@ -21,6 +21,8 @@ export default createGlobalStyle<IGlobalProps>`
       font-weight: 400;
       font-size: 16px;
       letter-spacing: 0.4px;
+      max-width: 768px;
+      margin: 0 auto;
     }
 
     h1, h2, h3, h4, h5 {
@@ -50,7 +52,25 @@ export default createGlobalStyle<IGlobalProps>`
       letter-spacing: 0.48px;
     }
     strong {
-      font-weight: 500;
+      font-weight: 700;
+    }
+
+    p {
+      letter-spacing: 0.4px;
+      font-family: 'Source Sans Pro', sans-serif;
+      color: #170C3A;
+      opacity: 1;
+      font-size: 20px;
+    }
+    a {
+      letter-spacing: 0.4px;
+      font-family: 'Source Sans Pro', sans-serif;
+      opacity: 1;
+      font-size: 20px;
+    }
+
+    label {
+      font-family: 'Source Sans Pro', sans-serif;
     }
 
     button {

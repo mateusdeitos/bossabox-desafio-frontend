@@ -7,11 +7,11 @@ import React, {
   useState,
 } from 'react';
 
-import { Container } from './styles';
+import { Container, InputContainer, Label } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  label: string;
+  label?: string;
   isRequired?: boolean;
 }
 
@@ -19,6 +19,7 @@ const Input: React.FC<InputProps> = ({
   name,
   label,
   isRequired = false,
+  children,
   ...rest
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -45,22 +46,25 @@ const Input: React.FC<InputProps> = ({
   }, [fieldName, registerField]);
 
   return (
-    <Container
-      isRequired={isRequired}
-      isFilled={isFilled}
-      isFocused={isFocused}
-      hasError={!!error}
-    >
-      <label htmlFor={name}>{label}</label>
-      <input
-        id={name}
-        name={name}
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-        defaultValue={defaultValue}
-        ref={inputRef}
-        {...rest}
-      />
+    <Container>
+      {label && <Label htmlFor={name}>{label}</Label>}
+      <InputContainer
+        isRequired={isRequired}
+        isFilled={isFilled}
+        isFocused={isFocused}
+        hasError={!!error}
+      >
+        {children}
+        <input
+          id={name}
+          name={name}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          defaultValue={defaultValue}
+          ref={inputRef}
+          {...rest}
+        />
+      </InputContainer>
       {error && <span>{error}</span>}
     </Container>
   );

@@ -114,6 +114,10 @@ interface ButtonStyleProps {
   classProps?: ButtonStylePropsType;
 }
 export const Container = styled.button<ButtonStyleProps>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
   width: 175px;
   padding: 13.5px 26px;
   text-align: center;
@@ -126,8 +130,10 @@ export const Container = styled.button<ButtonStyleProps>`
   border-radius: 5px;
   border-color: transparent;
   transition: all 0.4s;
-  svg {
-    margin-right: 8px;
+  img {
+    margin-right: 16px;
+    width: 20px;
+    height: 20px;
   }
   ${({ classProps }) => {
     const order = classProps?.order || 'primary';

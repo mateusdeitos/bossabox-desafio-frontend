@@ -76,7 +76,7 @@ const Input: React.FC<InputProps> = ({
           {...rest}
         />
       </InputContainer>
-      <Error>{error}</Error>
+      <Error hidden={!error}>{error}</Error>
     </Container>
   );
 };

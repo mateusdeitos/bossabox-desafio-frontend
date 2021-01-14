@@ -4,7 +4,6 @@ import { Form } from '@unform/web';
 import React, { useRef, useState } from 'react';
 import Input from '../../components/TextInput';
 import Button from '../../components/Button/index';
-import Card from '../../components/ToolCard';
 import CustomIcon from '../../components/Icon';
 
 const ComponentsPage: React.FC = () => {

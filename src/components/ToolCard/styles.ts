@@ -44,6 +44,7 @@ export const CardTitle = styled.a`
 `;
 export const CardDescription = styled.p`
   margin-bottom: 8px;
+  overflow-wrap: break-word;
 `;
 export const CardTagsContainer = styled.div`
   margin-bottom: 8px;

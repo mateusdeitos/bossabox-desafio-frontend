@@ -24,10 +24,10 @@ interface Tool {
 interface IProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit(): void;
+  reloadList(): void;
 }
 
-const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, onSubmit }) => {
+const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(
@@ -38,7 +38,7 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, onSubmit }) => {
           tags: data.tags.split(',').map(tag => tag.trim().toLowerCase()),
         });
         await api.post('/v1/tools', data);
-        onSubmit();
+        reloadList();
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const errors = getValidationErrors(error);
@@ -49,7 +49,7 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, onSubmit }) => {
         }
       }
     },
-    [onSubmit],
+    [reloadList],
   );
 
   return (

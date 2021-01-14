@@ -9,7 +9,7 @@ import { ActionsContainer, CardsContainer } from './styles';
 import Button from '../../components/Button';
 import Card from '../../components/ToolCard';
 import Checkbox from '../../components/CheckboxInput/index';
-import useApi, { RequestData } from '../../hooks/useApi';
+import useApi from '../../hooks/useApi';
 import NewToolModal from '../NewToolModal';
 
 interface Tool {
@@ -71,7 +71,11 @@ const Home: React.FC = () => {
     [queryParams],
   );
 
-  const submitFormManually = () => formRef.current?.submitForm();
+  const reloadList = () => {
+    // eslint-disable-next-line no-unused-expressions
+    formRef.current?.submitForm();
+    setTagsToHighlight([]);
+  };
 
   useEffect(() => {
     if (status === 'DONE') {
@@ -91,7 +95,7 @@ const Home: React.FC = () => {
       <NewToolModal
         isOpen={modalOpen}
         setIsOpen={setModalOpen}
-        onSubmit={submitFormManually}
+        reloadList={reloadList}
       />
       <Header />
       <ActionsContainer>
@@ -102,7 +106,7 @@ const Home: React.FC = () => {
           <Checkbox
             name="searchByTags"
             label="search in tags only"
-            onChange={submitFormManually}
+            onChange={reloadList}
           />
         </Form>
         <Button
@@ -125,7 +129,7 @@ const Home: React.FC = () => {
                 tags={tags.split(',')}
                 tagsToHighlight={tagsToHighlight}
                 delayAnimation={delay}
-                reloadList={submitFormManually}
+                reloadList={reloadList}
                 {...rest}
               />
             ))}

@@ -37,7 +37,7 @@ const Card: React.FC<ICardProps> = ({
         <CardTitle target="_blank" rel="noreferrer" href={url}>
           {title}
         </CardTitle>
-        <Button styleProps={{ order: 'secondary', type: 'danger' }}>
+        <Button styleProps={{ order: 'quartiary', type: 'danger' }}>
           <CustomIcon icon="remove" />
           remove
         </Button>

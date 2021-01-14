@@ -105,6 +105,124 @@ const stylesObj = {
       }
     `,
   },
+  terciary: {
+    neutral: css`
+      height: 35px;
+      background: #e1e7fd;
+      color: #365df0;
+
+      &:hover {
+        background: #cad6fc;
+        color: #365df0;
+      }
+
+      &:active {
+        background: #b9c6fa;
+        color: #365df0;
+      }
+      &:disabled {
+        background: #e1e7fd;
+        color: #b9c6fa;
+      }
+    `,
+    danger: css`
+      height: 35px;
+      background: #feefee;
+      color: #f95e5a;
+
+      &:hover {
+        background: #fcd7d6;
+        color: #f95e5a;
+      }
+
+      &:active {
+        background: #fcc6c5;
+        color: #f95e5a;
+      }
+      &:disabled {
+        background: #feefee;
+        color: #fcaeac;
+      }
+    `,
+    success: css`
+      height: 35px;
+      background: #e7fbf3;
+      color: #12db89;
+
+      &:hover {
+        background: #cff9e6;
+        color: #12db89;
+      }
+
+      &:active {
+        background: #b7f7d8;
+        color: #12db89;
+      }
+      &:disabled {
+        background: #e7fbf3;
+        color: #88edc4;
+      }
+    `,
+  },
+  quartiary: {
+    neutral: css`
+      height: 35px;
+      color: #365df0;
+      background: transparent;
+
+      &:hover {
+        color: #365df0;
+        background: transparent;
+      }
+
+      &:active {
+        color: #365df0;
+        background: transparent;
+      }
+      &:disabled {
+        color: #b9c6fa;
+        background: transparent;
+      }
+    `,
+    danger: css`
+      height: 35px;
+      color: #f95e5a;
+      background: transparent;
+
+      &:hover {
+        color: #f95e5a;
+        background: transparent;
+      }
+
+      &:active {
+        color: #f95e5a;
+        background: transparent;
+      }
+      &:disabled {
+        color: #fcaeac;
+        background: transparent;
+      }
+    `,
+    success: css`
+      height: 35px;
+      color: #12db89;
+      background: transparent;
+
+      &:hover {
+        color: #12db89;
+        background: transparent;
+      }
+
+      &:active {
+        color: #12db89;
+        background: transparent;
+      }
+      &:disabled {
+        color: #88edc4;
+        background: transparent;
+      }
+    `,
+  },
 };
 export type ButtonStylePropsType = {
   order: keyof typeof stylesObj;
@@ -132,8 +250,8 @@ export const Container = styled.button<ButtonStyleProps>`
   transition: all 0.4s;
   img {
     margin-right: 16px;
-    width: 20px;
-    height: 20px;
+    width: 12px;
+    height: 12px;
   }
   ${({ classProps }) => {
     const order = classProps?.order || 'primary';

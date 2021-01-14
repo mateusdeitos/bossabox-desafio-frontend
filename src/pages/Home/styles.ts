@@ -8,6 +8,7 @@ export const ActionsContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-end;
   margin-bottom: 16px;
   form {
     display: flex;

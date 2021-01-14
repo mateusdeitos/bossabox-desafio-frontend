@@ -12,6 +12,7 @@ import { Container, InputContainer, Label } from './styles';
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label?: string;
+  disableBrowserAutoComplete?: boolean;
   isRequired?: boolean;
 }
 
@@ -19,6 +20,7 @@ const Input: React.FC<InputProps> = ({
   name,
   label,
   isRequired = false,
+  disableBrowserAutoComplete = false,
   children,
   ...rest
 }) => {
@@ -27,9 +29,15 @@ const Input: React.FC<InputProps> = ({
   const [isFilled, setIsFilled] = useState(false);
   const { fieldName, defaultValue, error, registerField } = useField(name);
 
-  const handleInputFocus = useCallback(() => {
-    setIsFocused(true);
-  }, []);
+  const handleInputFocus = useCallback(
+    (event: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(true);
+      if (disableBrowserAutoComplete) {
+        event.target.setAttribute('autocomplete', 'off');
+      }
+    },
+    [disableBrowserAutoComplete],
+  );
 
   const handleInputBlur = useCallback(() => {
     setIsFocused(false);

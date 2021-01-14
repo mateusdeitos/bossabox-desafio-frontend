@@ -89,7 +89,7 @@ const Home: React.FC = () => {
       <Header />
       <ActionsContainer>
         <Form ref={formRef} onSubmit={dados => handleSubmit(dados)}>
-          <Input name="search" placeholder="search">
+          <Input name="search" placeholder="search" disableBrowserAutoComplete>
             <CustomIcon icon="search" />
           </Input>
           <Checkbox
@@ -98,7 +98,7 @@ const Home: React.FC = () => {
             onChange={submitFormManually}
           />
         </Form>
-        <Button styleProps={{ order: 'secondary', type: 'neutral' }}>
+        <Button styleProps={{ order: 'terciary', type: 'neutral' }}>
           <CustomIcon icon="add" />
           Add
         </Button>

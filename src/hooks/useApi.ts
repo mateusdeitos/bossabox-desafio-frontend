@@ -76,7 +76,9 @@ const useApi = <T, QueryParams = void, BodyParams = void>(
           },
         });
 
-        dispatch({ type: 'success', payload: response.data });
+        setTimeout(() => {
+          dispatch({ type: 'success', payload: response.data });
+        }, 500);
       } catch (error) {
         dispatch({ type: 'failure', payload: error.message });
       }

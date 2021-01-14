@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import Button from '../Button';
@@ -44,8 +45,8 @@ const Card: React.FC<ICardProps> = ({
       <CardDescription>{description}</CardDescription>
       <CardTagsContainer>
         {tags &&
-          tags.map(tag => (
-            <CardTag highlighted={tagsToHighlight.includes(tag)}>
+          tags.map((tag, idx) => (
+            <CardTag key={idx} highlighted={tagsToHighlight.includes(tag)}>
               #{tag}
             </CardTag>
           ))}

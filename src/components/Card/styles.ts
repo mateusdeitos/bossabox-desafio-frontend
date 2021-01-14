@@ -1,4 +1,16 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+const appearFromBottom = keyframes`
+
+  from {
+      opacity: 0;
+      transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 export const Container = styled.div<{ delayAnimation: number }>`
   width: 100%;
@@ -8,9 +20,16 @@ export const Container = styled.div<{ delayAnimation: number }>`
   border: 1px solid #ebeaed;
   border-radius: 5px;
   padding: 16px;
+  opacity: 0;
   & + & {
     margin-top: 16px;
   }
+
+  // eslint-disable-next-line prettier/prettier
+  animation: ${appearFromBottom} 1s ease forwards;
+  ${props => css`
+    animation-delay: ${props.delayAnimation * 100}ms;
+  `}
 `;
 
 export const CardTitleContainer = styled.div`

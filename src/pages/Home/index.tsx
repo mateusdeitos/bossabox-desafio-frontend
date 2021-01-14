@@ -52,7 +52,7 @@ const Home: React.FC = () => {
 
   const handleSubmit = useCallback(
     ({ search, searchByTags }: FormData): void => {
-      if (search) {
+      if (search || (!search && !searchByTags)) {
         setQueryParams(() => ({
           ...queryParams,
           search,
@@ -104,6 +104,7 @@ const Home: React.FC = () => {
         </Button>
       </ActionsContainer>
       {status === 'ERROR' && <h1>{errorMessage}</h1>}
+      {status === 'FETCHING' && <h1>Carregando...</h1>}
       {status === 'DONE' && (
         <>
           <CardsContainer>

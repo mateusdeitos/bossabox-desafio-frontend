@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div<{ delayAnimation: number }>`
   width: 100%;
@@ -29,4 +29,14 @@ export const CardDescription = styled.p`
 export const CardTagsContainer = styled.div`
   margin-bottom: 8px;
 `;
-export const CardTag = styled.strong``;
+export const CardTag = styled.strong<{ highlighted: boolean }>`
+  ${({ highlighted }) =>
+    highlighted &&
+    css`
+      background-color: yellow;
+    `}
+
+  &:after {
+    content: ' ';
+  }
+`;

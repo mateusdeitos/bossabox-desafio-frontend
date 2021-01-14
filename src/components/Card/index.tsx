@@ -17,6 +17,7 @@ interface ICardProps {
   url: string;
   description: string;
   tags: string[];
+  tagsToHighlight?: string[];
   delayAnimation: number;
 }
 
@@ -26,6 +27,7 @@ const Card: React.FC<ICardProps> = ({
   url,
   description,
   tags,
+  tagsToHighlight = [],
   delayAnimation,
 }) => {
   return (
@@ -41,7 +43,12 @@ const Card: React.FC<ICardProps> = ({
       </CardTitleContainer>
       <CardDescription>{description}</CardDescription>
       <CardTagsContainer>
-        {tags && tags.map(tag => <CardTag>#{tag} </CardTag>)}
+        {tags &&
+          tags.map(tag => (
+            <CardTag highlighted={tagsToHighlight.includes(tag)}>
+              #{tag}
+            </CardTag>
+          ))}
       </CardTagsContainer>
     </Container>
   );

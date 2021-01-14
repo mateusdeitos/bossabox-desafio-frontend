@@ -17,7 +17,7 @@ const Checkbox: React.FC<InputProps> = ({ name, label, ...rest }) => {
     registerField({
       name: fieldName,
       ref: inputRef.current,
-      path: 'value',
+      path: 'checked',
     });
   }, [fieldName, registerField]);
 

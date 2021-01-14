@@ -1,5 +1,5 @@
 import { Form } from '@unform/web';
-import React, { useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FormHandles } from '@unform/core';
 import Header from '../../components/Header';
 import CustomIcon from '../../components/Icon';
@@ -9,124 +9,117 @@ import { ActionsContainer, CardsContainer } from './styles';
 import Button from '../../components/Button';
 import Card from '../../components/Card';
 import Checkbox from '../../components/CheckboxInput/index';
+import useApi from '../../hooks/useApi';
 
-const cards: {
+interface Tool {
   id: number;
   title: string;
   description: string;
   url: string;
   tags: string;
-}[] = [
-  {
-    id: 14,
-    title: 'hotel',
-    description:
-      'Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.',
-    url: 'https://github.com/typicode/hotel',
-    tags: 'node,organizing,webapps,domain,developer,https,proxy',
-  },
-  {
-    id: 13,
-    title: 'fastify',
-    description:
-      'Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.',
-    url: 'https://www.fastify.io/',
-    tags: 'web,framework,node,http2,https,localhost',
-  },
-  {
-    id: 11,
-    title: 'Notion.so',
-    description:
-      'All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized. ',
-    url: 'https://notion.so',
-    tags: 'organization,planning,collaboration,writing,calendar',
-  },
-  {
-    id: 8,
-    title: 'Notiosns asdasddasdas🌹',
-    description:
-      'All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized. ✔🐱‍👓🐱‍👓💋😜🌹',
-    url: 'https://notion.so',
-    tags: 'nice,top',
-  },
-  {
-    id: 7,
-    title: 'Notiosns asdasda🌹',
-    description:
-      'All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized. ✔🐱‍👓🐱‍👓💋😜🌹',
-    url: 'https://notion.so',
-    tags: 'nice,top',
-  },
-  {
-    id: 6,
-    title: 'Notiosns asd🌹',
-    description:
-      'All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized. ✔🐱‍👓🐱‍👓💋😜🌹',
-    url: 'https://notion.so',
-    tags: 'nice,top',
-  },
-  {
-    id: 5,
-    title: 'Notiosns 🌹',
-    description:
-      'All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized. ✔🐱‍👓🐱‍👓💋😜🌹',
-    url: 'https://notion.so',
-    tags: 'nice,top',
-  },
-  {
-    id: 4,
-    title: 'Notiosn 🌹',
-    description:
-      'All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized. ✔🐱‍👓🐱‍👓💋😜🌹',
-    url: 'https://notion.so',
-    tags: 'nice,top',
-  },
-  {
-    id: 3,
-    title: 'Notion 🌹',
-    description:
-      'All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized. ✔🐱‍👓🐱‍👓💋😜🌹',
-    url: 'https://notion.so',
-    tags: 'nice,top',
-  },
-  {
-    id: 2,
-    title: 'Notion',
-    description:
-      'All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized. ✔🐱‍👓🐱‍👓💋😜🌹',
-    url: 'https://notion.so',
-    tags: 'nice,top',
-  },
-];
+}
+
+interface ToolsApiResponse {
+  currentOffset: number;
+  totalResults: number;
+  results: Tool[];
+}
+
+interface QueryParams {
+  search?: string;
+  orderBy?: string;
+  limit?: number;
+  offset?: number;
+  searchByTags?: boolean;
+}
+
+interface FormData {
+  search: string;
+  searchByTags: boolean;
+}
 
 const Home: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const [queryParams, setQueryParams] = useState<QueryParams>({});
+  const [tools, setTools] = useState<Tool[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [tagsToHighlight, setTagsToHighlight] = useState<string[]>([]);
+  const { status, data, error } = useApi<ToolsApiResponse, QueryParams>({
+    endpoint: 'TOOLS',
+    method: 'get',
+    queryParams,
+  });
+
+  const handleSubmit = useCallback(
+    ({ search, searchByTags }: FormData): void => {
+      if (search) {
+        setQueryParams(() => ({
+          ...queryParams,
+          search,
+          searchByTags,
+        }));
+      }
+
+      if (searchByTags) {
+        setTagsToHighlight(
+          search.split(',').map(term => term.toLowerCase().trim()),
+        );
+      }
+    },
+    [queryParams],
+  );
+
+  const submitFormManually = () => formRef.current?.submitForm();
+
+  useEffect(() => {
+    if (status === 'DONE') {
+      if (data) {
+        const { results } = data;
+        setTools(results);
+      }
+    }
+
+    if (status === 'ERROR') {
+      setErrorMessage(error || 'Ocorreu um erro inesperado');
+    }
+  }, [data, error, status]);
+
   return (
     <PageTemplate>
       <Header />
       <ActionsContainer>
-        <Form ref={formRef} onSubmit={data => console.log({ data })}>
+        <Form ref={formRef} onSubmit={dados => handleSubmit(dados)}>
           <Input name="search" placeholder="search">
             <CustomIcon icon="search" />
           </Input>
-          <Checkbox name="searchByTags" label="search in tags only" />
+          <Checkbox
+            name="searchByTags"
+            label="search in tags only"
+            onChange={submitFormManually}
+          />
         </Form>
         <Button styleProps={{ order: 'secondary', type: 'neutral' }}>
           <CustomIcon icon="add" />
           Add
         </Button>
       </ActionsContainer>
-      <CardsContainer>
-        {cards.map(({ id, tags, ...rest }, delay) => (
-          <Card
-            key={id}
-            id={id}
-            tags={tags.split(',')}
-            delayAnimation={delay}
-            {...rest}
-          />
-        ))}
-      </CardsContainer>
+      {status === 'ERROR' && <h1>{errorMessage}</h1>}
+      {status === 'DONE' && (
+        <>
+          <CardsContainer>
+            {tools.map(({ id, tags, ...rest }, delay) => (
+              <Card
+                key={id}
+                id={id}
+                tags={tags.split(',')}
+                tagsToHighlight={tagsToHighlight}
+                delayAnimation={delay}
+                {...rest}
+              />
+            ))}
+          </CardsContainer>
+        </>
+      )}
     </PageTemplate>
   );
 };

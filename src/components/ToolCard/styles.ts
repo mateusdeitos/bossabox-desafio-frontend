@@ -60,7 +60,11 @@ export const CardTag = styled.strong<{ highlighted: boolean }>`
     css`
       background-color: yellow;
     `}
-
+  cursor: pointer;
+  transition: all 0.4s;
+  &:hover {
+    background-color: yellow;
+  }
   &:after {
     content: ' ';
   }

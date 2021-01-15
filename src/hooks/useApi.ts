@@ -9,8 +9,6 @@ enum EStatusFetch {
 }
 enum EApiMethods {
   get = 'GET',
-  post = 'POST',
-  delete = 'DELETE',
 }
 
 enum EEndpoints {
@@ -23,12 +21,12 @@ interface Response<T> {
   status: keyof typeof EStatusFetch;
   data?: T;
   error?: string;
+  reloadFetch(): void;
 }
 
-export interface RequestData<QueryParams, BodyParams> {
+export interface RequestData<QueryParams> {
   method: keyof typeof EApiMethods;
   endpoint: keyof typeof EEndpoints;
-  body?: BodyParams;
   queryParams?: QueryParams;
 }
 
@@ -37,14 +35,20 @@ type Action<T> =
   | { type: 'success'; payload: T }
   | { type: 'failure'; payload: string };
 
-const useApi = <T, QueryParams = void, BodyParams = void>(
-  options: RequestData<QueryParams, BodyParams>,
+const useApi = <T, QueryParams = void>(
+  options: RequestData<QueryParams>,
 ): Response<T> => {
-  const { method, endpoint, body, queryParams } = options;
+  const [reload, setReload] = useState(true);
+  const { method, endpoint, queryParams } = options;
+
+  const reloadFunction = () => {
+    setReload(true);
+  };
   const initialState: Response<T> = {
     status: 'STARTING',
     error: undefined,
     data: {} as T,
+    reloadFetch: reloadFunction,
   };
 
   const fetchReducer = (state: Response<T>, action: Action<T>): Response<T> => {
@@ -69,7 +73,6 @@ const useApi = <T, QueryParams = void, BodyParams = void>(
         const response = await api({
           method,
           url: EEndpoints[endpoint],
-          data: body,
           params: queryParams,
           headers: {
             authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTA2MjU1NTUsImV4cCI6MTYxMzIxNzU1NSwic3ViIjoiMTcifQ.cdKUHwaayz8Pi-BWWyDDm6UfzZGlnn0DwBECVY8DJE0`,
@@ -81,12 +84,16 @@ const useApi = <T, QueryParams = void, BodyParams = void>(
         }, 500);
       } catch (error) {
         dispatch({ type: 'failure', payload: error.message });
+      } finally {
+        setReload(false);
       }
     };
-    fetchApi();
-  }, [body, endpoint, method, queryParams]);
+    if (reload) {
+      fetchApi();
+    }
+  }, [endpoint, method, queryParams, reload]);
 
-  return state;
+  return { ...state, reloadFetch: reloadFunction };
 };
 
 export default useApi;

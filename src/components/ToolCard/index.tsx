@@ -23,6 +23,7 @@ interface ICardProps {
   tagsToHighlight?: string[];
   delayAnimation: number;
   reloadList(): void;
+  onTagClick(tag: string): void;
 }
 
 const Card: React.FC<ICardProps> = ({
@@ -33,6 +34,7 @@ const Card: React.FC<ICardProps> = ({
   tags,
   tagsToHighlight = [],
   delayAnimation,
+  onTagClick,
   reloadList,
 }) => {
   const deleteTool = async (id: number) => {
@@ -58,7 +60,11 @@ const Card: React.FC<ICardProps> = ({
       <CardTagsContainer>
         {tags &&
           tags.map((tag, idx) => (
-            <CardTag key={idx} highlighted={tagsToHighlight.includes(tag)}>
+            <CardTag
+              onClick={() => onTagClick(tag)}
+              key={idx}
+              highlighted={tagsToHighlight.includes(tag)}
+            >
               #{tag}
             </CardTag>
           ))}

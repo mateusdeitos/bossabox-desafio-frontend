@@ -38,6 +38,7 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
           tags: data.tags.split(',').map(tag => tag.trim().toLowerCase()),
         });
         await api.post('/v1/tools', data);
+        setIsOpen(false);
         reloadList();
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
@@ -49,7 +50,7 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
         }
       }
     },
-    [reloadList],
+    [reloadList, setIsOpen],
   );
 
   return (

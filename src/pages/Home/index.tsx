@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import { Form } from '@unform/web';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FormHandles } from '@unform/core';
@@ -46,7 +47,10 @@ const Home: React.FC = () => {
   const [tools, setTools] = useState<Tool[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [tagsToHighlight, setTagsToHighlight] = useState<string[]>([]);
-  const { status, data, error } = useApi<ToolsApiResponse, QueryParams>({
+  const { status, data, error, reloadFetch } = useApi<
+    ToolsApiResponse,
+    QueryParams
+  >({
     method: 'get',
     endpoint: 'TOOLS',
     queryParams,
@@ -60,21 +64,29 @@ const Home: React.FC = () => {
           search,
           searchByTags,
         }));
+        reloadFetch();
       }
 
       if (searchByTags) {
         setTagsToHighlight(
           search.split(',').map(term => term.toLowerCase().trim()),
         );
+      } else {
+        setTagsToHighlight([]);
       }
     },
-    [queryParams],
+    [queryParams, reloadFetch],
   );
 
   const reloadList = () => {
-    // eslint-disable-next-line no-unused-expressions
-    formRef.current?.submitForm();
     setTagsToHighlight([]);
+    reloadFetch();
+  };
+
+  const handleTagClick = (search: string) => {
+    formRef.current?.setFieldValue('search', search);
+    formRef.current?.setFieldValue('searchByTags', 'checked');
+    handleSubmit({ search, searchByTags: true });
   };
 
   useEffect(() => {
@@ -103,11 +115,7 @@ const Home: React.FC = () => {
           <Input name="search" placeholder="search" disableBrowserAutoComplete>
             <CustomIcon icon="search" />
           </Input>
-          <Checkbox
-            name="searchByTags"
-            label="search in tags only"
-            onChange={reloadList}
-          />
+          <Checkbox name="searchByTags" label="search in tags only" />
         </Form>
         <Button
           styleProps={{ order: 'terciary', type: 'neutral' }}
@@ -129,7 +137,8 @@ const Home: React.FC = () => {
                 tags={tags.split(',')}
                 tagsToHighlight={tagsToHighlight}
                 delayAnimation={delay}
-                reloadList={reloadList}
+                reloadList={reloadFetch}
+                onTagClick={handleTagClick}
                 {...rest}
               />
             ))}

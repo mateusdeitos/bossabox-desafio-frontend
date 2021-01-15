@@ -57,9 +57,12 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <Container fillWidth={fillWidth}>
-      {label && <Label htmlFor={name}>{label}</Label>}
+      {label && (
+        <Label isRequired={isRequired} htmlFor={name}>
+          {label}
+        </Label>
+      )}
       <InputContainer
-        isRequired={isRequired}
         isFilled={isFilled}
         isFocused={isFocused}
         hasError={!!error}

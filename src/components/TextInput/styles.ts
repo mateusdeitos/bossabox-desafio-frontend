@@ -4,7 +4,6 @@ interface ContainerProps {
   isFocused: boolean;
   isFilled: boolean;
   hasError: boolean;
-  isRequired: boolean;
 }
 
 interface InputProps {
@@ -25,7 +24,7 @@ export const Container = styled.div<InputProps>`
     `}
 `;
 
-export const Label = styled.label`
+export const Label = styled.label<{ isRequired: boolean }>`
   text-align: left;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
@@ -33,6 +32,16 @@ export const Label = styled.label`
   color: #170c3a;
   opacity: 1;
   margin-bottom: 16px;
+
+  ${({ isRequired }) =>
+    isRequired &&
+    css`
+      &:after {
+        content: '*';
+        margin-left: 4px;
+        color: #8f8a9b;
+      }
+    `}
 `;
 export const InputContainer = styled.div<ContainerProps & InputProps>`
   display: flex;
@@ -44,6 +53,7 @@ export const InputContainer = styled.div<ContainerProps & InputProps>`
   border-radius: 5px;
   color: #170c3a;
   padding: 12.5px 20px;
+
   ${({ fillWidth }) =>
     fillWidth &&
     css`
@@ -70,15 +80,6 @@ export const InputContainer = styled.div<ContainerProps & InputProps>`
       color: #f95e5a;
     `}
 
-    ${({ isRequired }) =>
-    isRequired &&
-    css`
-      ${Label}::after {
-        content: '*';
-        margin-left: 8px;
-        color: #8f8a9b;
-      }
-    `}
 
 
   input {

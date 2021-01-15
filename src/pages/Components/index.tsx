@@ -32,7 +32,7 @@ const ComponentsPage: React.FC = () => {
       <p>Olá</p>
       {/* <Card /> */}
       <Form ref={formRef} onSubmit={handleSubmit}>
-        <Input name="input" label="label" type="text">
+        <Input name="input" label="label" type="text" isRequired>
           <CustomIcon icon="search" />
         </Input>
         <Button

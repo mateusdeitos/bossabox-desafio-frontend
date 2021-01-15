@@ -1,9 +1,10 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react';
+import React, { useState } from 'react';
 import api from '../../services/api';
 import Button from '../Button';
+import ConfirmationModal from '../ConfirmationModal';
 import CustomIcon from '../Icon';
 import {
   Container,
@@ -37,20 +38,31 @@ const Card: React.FC<ICardProps> = ({
   onTagClick,
   reloadList,
 }) => {
-  const deleteTool = async (id: number) => {
+  const [isOpen, showConfirmation] = useState(false);
+  const deleteTool = async () => {
     await api.delete(`/v1/tools/${id}`);
     reloadList();
   };
 
   return (
     <Container key={id} delayAnimation={delayAnimation}>
+      <ConfirmationModal
+        isOpen={isOpen}
+        setIsOpen={showConfirmation}
+        options={{
+          confirmationButtonMessage: 'Yes, remove.',
+          message: `Are you sure you want to remove ${title}?`,
+          onConfirm: deleteTool,
+          title: 'Remove tool',
+        }}
+      />
       <CardTitleContainer>
         <CardTitle target="_blank" rel="noreferrer" href={url}>
           {title}
         </CardTitle>
         <Button
           styleProps={{ order: 'terciary', type: 'danger' }}
-          onClick={() => deleteTool(id)}
+          onClick={() => showConfirmation(true)}
         >
           <CustomIcon icon="remove" />
           remove

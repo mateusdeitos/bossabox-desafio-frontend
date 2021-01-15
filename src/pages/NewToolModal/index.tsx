@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import Input from '../../components/TextInput';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal/Base';
-import { Container, ModalTitle } from './styles';
+import { Container, ModalFooter, ModalTitle } from './styles';
 import CustomIcon from '../../components/Icon';
 import api from '../../services/api';
 import { INewToolFormData } from './dto/INewToolFormData';
@@ -60,7 +60,11 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
           <CustomIcon icon="add" />
           <h3>Add new Tool</h3>
         </ModalTitle>
-        <Form ref={formRef} onSubmit={handleSubmit}>
+        <Form
+          ref={formRef}
+          onSubmit={handleSubmit}
+          initialData={{ url: 'https://' }}
+        >
           <Input
             name="title"
             label="Tool Name"
@@ -89,25 +93,27 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
             fillWidth
             disableBrowserAutoComplete
           />
-          <Button
-            styleProps={{
-              order: 'primary',
-              type: 'neutral',
-              width: 'expanded',
-            }}
-          >
-            Salvar
-          </Button>
-          <Button
-            styleProps={{
-              order: 'terciary',
-              type: 'danger',
-              width: 'expanded',
-            }}
-            onClick={() => setIsOpen(false)}
-          >
-            Cancelar
-          </Button>
+          <ModalFooter>
+            <Button
+              styleProps={{
+                order: 'terciary',
+                type: 'danger',
+                width: 'expanded',
+              }}
+              onClick={() => setIsOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              styleProps={{
+                order: 'terciary',
+                type: 'neutral',
+                width: 'expanded',
+              }}
+            >
+              Add tool
+            </Button>
+          </ModalFooter>
         </Form>
       </Container>
     </Modal>

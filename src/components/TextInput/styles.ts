@@ -16,7 +16,7 @@ export const Container = styled.div<InputProps>`
   flex-direction: column;
   align-items: flex-start;
   & + & {
-    margin-top: 20px;
+    margin-top: 12px;
   }
   ${({ fillWidth }) =>
     fillWidth &&
@@ -32,7 +32,7 @@ export const Label = styled.label`
   letter-spacing: 0.4px;
   color: #170c3a;
   opacity: 1;
-  margin-bottom: 20.75px;
+  margin-bottom: 16px;
 `;
 export const InputContainer = styled.div<ContainerProps & InputProps>`
   display: flex;
@@ -97,7 +97,7 @@ export const InputContainer = styled.div<ContainerProps & InputProps>`
 export const Error = styled.span`
   font-size: 18px;
   font-family: 'Source Sans Pro', sans-serif;
-  margin-top: 8px;
+  margin-top: 4px;
   margin-left: auto;
   color: #f95e5a;
   letter-spacing: 0.36px;

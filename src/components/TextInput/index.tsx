@@ -37,6 +37,12 @@ const Input: React.FC<InputProps> = ({
       if (disableBrowserAutoComplete) {
         event.target.setAttribute('autocomplete', 'off');
       }
+
+      // Seta o cursor para iniciar após a string atual ao invés de selecionar tudo.
+      event.currentTarget.setSelectionRange(
+        event.currentTarget.value.length,
+        event.currentTarget.value.length,
+      );
     },
     [disableBrowserAutoComplete],
   );

@@ -74,9 +74,6 @@ const useApi = <T, QueryParams = void>(
           method,
           url: EEndpoints[endpoint],
           params: queryParams,
-          headers: {
-            authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTA2MjU1NTUsImV4cCI6MTYxMzIxNzU1NSwic3ViIjoiMTcifQ.cdKUHwaayz8Pi-BWWyDDm6UfzZGlnn0DwBECVY8DJE0`,
-          },
         });
 
         setTimeout(() => {

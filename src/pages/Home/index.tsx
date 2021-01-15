@@ -12,6 +12,7 @@ import Card from '../../components/ToolCard';
 import Checkbox from '../../components/CheckboxInput/index';
 import useApi from '../../hooks/useApi';
 import NewToolModal from '../NewToolModal';
+import Pagination from '../../components/Pagination';
 
 interface Tool {
   id: number;
@@ -42,8 +43,13 @@ interface FormData {
 
 const Home: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentLimit] = useState(5);
+  const [totalPages, setTotalPages] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
-  const [queryParams, setQueryParams] = useState<QueryParams>({});
+  const [queryParams, setQueryParams] = useState<QueryParams>({
+    limit: currentLimit,
+  });
   const [tools, setTools] = useState<Tool[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [tagsToHighlight, setTagsToHighlight] = useState<string[]>([]);
@@ -63,7 +69,9 @@ const Home: React.FC = () => {
           ...queryParams,
           search,
           searchByTags,
+          offset: 0,
         }));
+        setCurrentPage(1);
         reloadFetch();
       }
 
@@ -76,6 +84,18 @@ const Home: React.FC = () => {
       }
     },
     [queryParams, reloadFetch],
+  );
+
+  const handlePageChange = useCallback(
+    (page: number) => {
+      setCurrentPage(page);
+      setQueryParams(() => ({
+        ...queryParams,
+        offset: (page - 1) * currentLimit,
+      }));
+      reloadFetch();
+    },
+    [currentLimit, queryParams, reloadFetch],
   );
 
   const reloadList = () => {
@@ -92,15 +112,16 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (status === 'DONE') {
       if (data) {
-        const { results } = data;
+        const { results, totalResults } = data;
         setTools(results);
+        setTotalPages(Math.ceil(totalResults / currentLimit));
       }
     }
 
     if (status === 'ERROR') {
       setErrorMessage(error || 'Ocorreu um erro inesperado');
     }
-  }, [data, error, status]);
+  }, [currentLimit, data, error, status]);
 
   return (
     <PageTemplate>
@@ -145,6 +166,11 @@ const Home: React.FC = () => {
           </CardsContainer>
         </>
       )}
+      <Pagination
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+        totalPages={totalPages}
+      />
     </PageTemplate>
   );
 };

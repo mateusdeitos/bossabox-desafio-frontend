@@ -71,6 +71,7 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
             isRequired
             fillWidth
             disableBrowserAutoComplete
+            autoFocus
           />
           <Input
             name="url"

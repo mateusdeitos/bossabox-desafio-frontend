@@ -13,6 +13,7 @@ import Checkbox from '../../components/CheckboxInput/index';
 import useApi from '../../hooks/useApi';
 import NewToolModal from '../NewToolModal';
 import Pagination from '../../components/Pagination';
+import SkeletonCard from '../../components/ToolCard/skeleton';
 
 interface Tool {
   id: number;
@@ -147,7 +148,7 @@ const Home: React.FC = () => {
         </Button>
       </ActionsContainer>
       {status === 'ERROR' && <h1>{errorMessage}</h1>}
-      {status === 'FETCHING' && <h1>Carregando...</h1>}
+      {status === 'FETCHING' && <SkeletonCard count={currentLimit} />}
       {status === 'DONE' && (
         <>
           <CardsContainer>

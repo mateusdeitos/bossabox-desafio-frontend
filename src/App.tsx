@@ -5,14 +5,12 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import GlobalStyle from './styles/global';
 import Routes from './routes';
-import useColorMode from './hooks/useColorMode';
 
 const App = () => {
-  const [colorMode] = useColorMode();
   return (
     <Router>
+      <GlobalStyle />
       <Routes />
-      <GlobalStyle theme={colorMode} />
     </Router>
   );
 };

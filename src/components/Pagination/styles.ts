@@ -10,7 +10,7 @@ export const Container = styled.div`
 `;
 
 export const NavButton = styled.button<{ prevOrNext: 'prev' | 'next' }>`
-  display: flex;
+  display: inline-block;
   align-items: center;
   color: #365df0;
   background: transparent;
@@ -18,23 +18,42 @@ export const NavButton = styled.button<{ prevOrNext: 'prev' | 'next' }>`
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
   font-size: 18px;
-  transition: all 0.4s cubic-bezier(0.1, 0.3, 1, 0.1);
+  transition: all 0.4s;
   ${({ prevOrNext }) =>
     prevOrNext === 'next'
       ? css`
-          flex-direction: row-reverse;
           margin-left: 8px;
           svg {
             margin-left: 12px;
           }
         `
       : css`
-          flex-direction: row;
           margin-right: 8px;
           svg {
             margin-right: 12px;
           }
         `};
+
+  &:after {
+    display: block;
+    content: '';
+    border-bottom: solid 3px #365df0;
+    transform: scaleX(0);
+    transition: transform 250ms ease-in-out;
+
+    ${({ prevOrNext }) =>
+      prevOrNext === 'next'
+        ? css`
+            transform-origin: 0% 50%;
+          `
+        : css`
+            transform-origin: 100% 50%;
+          `};
+  }
+
+  &:not([disabled]):hover:after {
+    transform: scaleX(1);
+  }
 
   &:disabled {
     color: #9aaef7;

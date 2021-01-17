@@ -1,10 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-interface IGlobalProps {
-  theme: 'light' | 'dark';
-}
-
-export default createGlobalStyle<IGlobalProps>`
+export default createGlobalStyle`
 
     * {
       margin: 0;
@@ -14,8 +10,8 @@ export default createGlobalStyle<IGlobalProps>`
     }
 
     body {
-      background: ${({ theme }) => (theme === 'light' ? '#FFF' : '#111')};
-      color: ${({ theme }) => (theme === 'light' ? '#111' : '#FFF')};
+      background: #FFF;
+      color: #170C3A;
       --webkit-font-smoothing: antialiased;
       font-family: 'Source Sans Pro', sans-serif;
       font-weight: 400;
@@ -28,7 +24,7 @@ export default createGlobalStyle<IGlobalProps>`
     h1, h2, h3, h4, h5 {
       font-family: 'Source Sans Pro', sans-serif;
       font-weight: 600;
-      color: #170C3A;
+      color:  #170C3A ;
     }
 
     h1 {
@@ -71,6 +67,7 @@ export default createGlobalStyle<IGlobalProps>`
 
     label {
       font-family: 'Source Sans Pro', sans-serif;
+      color: #170C3A;
     }
 
     button {

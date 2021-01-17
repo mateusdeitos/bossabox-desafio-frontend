@@ -85,8 +85,8 @@ const Pagination: React.FC<IPaginationProps> = ({
             disabled={currentPage === totalPages}
             onClick={() => next()}
           >
-            <FaChevronRight size={10} />
             Próxima
+            <FaChevronRight size={10} />
           </NavButton>
         </>
       )}

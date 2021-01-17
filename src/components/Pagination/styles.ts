@@ -71,30 +71,6 @@ export const NavButton = styled.button<{ prevOrNext: 'prev' | 'next' }>`
 
 export const PageButton = styled.button<{ selected: boolean }>`
   display: none;
-  font-size: 18px;
-  font-weight: 600;
-  color: #365df0;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  border-color: transparent;
-  transition: all 0.4s;
-
-  &:disabled {
-    color: #9aaef7;
-    cursor: not-allowed;
-
-    &:hover {
-      background: unset;
-    }
-  }
-
-  &:hover {
-    background: #ebeaed;
-  }
-  & + & {
-    margin-left: 4px;
-  }
   background: ${({ selected }) => (selected ? '#ebeaed' : 'transparent')};
 
   ${windowLargerThan500px(css`
@@ -102,5 +78,29 @@ export const PageButton = styled.button<{ selected: boolean }>`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #365df0;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border-color: transparent;
+    transition: all 0.4s;
+
+    &:disabled {
+      color: #9aaef7;
+      cursor: not-allowed;
+
+      &:hover {
+        background: unset;
+      }
+    }
+
+    &:hover {
+      background: #ebeaed;
+    }
+    & + & {
+      margin-left: 4px;
+    }
   `)}
 `;

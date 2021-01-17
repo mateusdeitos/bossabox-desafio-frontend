@@ -64,8 +64,8 @@ const Card: React.FC<ICardProps> = ({
           styleProps={{ order: 'terciary', type: 'danger' }}
           onClick={() => showConfirmation(true)}
         >
-          <CustomIcon icon="remove" />
-          remove
+          <CustomIcon icon="remove" size={12} />
+          <span>remove</span>
         </Button>
       </CardTitleContainer>
       <CardDescription>{description}</CardDescription>

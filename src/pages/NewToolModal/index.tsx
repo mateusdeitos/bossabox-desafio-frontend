@@ -57,7 +57,7 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
     <Modal isOpen={isOpen}>
       <Container>
         <ModalTitle>
-          <CustomIcon icon="add" />
+          <CustomIcon icon="add" size={20} />
           <h3>Add new Tool</h3>
         </ModalTitle>
         <Form
@@ -97,13 +97,12 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
           <ModalFooter>
             <Button
               styleProps={{
-                order: 'terciary',
-                type: 'danger',
+                order: 'primary',
+                type: 'neutral',
                 width: 'expanded',
               }}
-              onClick={() => setIsOpen(false)}
             >
-              Cancel
+              Add tool
             </Button>
             <Button
               styleProps={{
@@ -111,8 +110,9 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
                 type: 'neutral',
                 width: 'expanded',
               }}
+              onClick={() => setIsOpen(false)}
             >
-              Add tool
+              Cancel
             </Button>
           </ModalFooter>
         </Form>

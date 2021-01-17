@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { windowLargerThan500px } from '../../styles/breakpoints';
 
 const stylesObj = {
   primary: {
@@ -224,7 +225,7 @@ const stylesObj = {
     `,
   },
 };
-const buttonWidth = {
+export const buttonWidth = {
   normal: 175,
   expanded: 360,
 };
@@ -242,10 +243,10 @@ export const Container = styled.button<ButtonStyleProps>`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 13.5px 26px;
+  padding: 6.75px 13px;
   text-align: center;
   font-family: 'Source Sans Pro';
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.36px;
   color: #ffffff;
@@ -255,9 +256,13 @@ export const Container = styled.button<ButtonStyleProps>`
   transition: all 0.4s;
   img {
     margin-right: 16px;
-    width: 12px;
-    height: 12px;
   }
+  ${windowLargerThan500px(
+    css`
+      font-size: 18px;
+      padding: 13.5px 26px;
+    `,
+  )}
   ${({ classProps }) => {
     const order = classProps?.order || 'primary';
     const type = classProps?.type || 'neutral';

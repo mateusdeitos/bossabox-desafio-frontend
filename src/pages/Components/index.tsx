@@ -33,7 +33,7 @@ const ComponentsPage: React.FC = () => {
       {/* <Card /> */}
       <Form ref={formRef} onSubmit={handleSubmit}>
         <Input name="input" label="label" type="text" isRequired>
-          <CustomIcon icon="search" />
+          <CustomIcon icon="search" size={15} />
         </Input>
         <Button
           styleProps={{ order: 'primary', type: 'neutral' }}

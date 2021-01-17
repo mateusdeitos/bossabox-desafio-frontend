@@ -11,8 +11,11 @@ const iconObj = {
   remove: removeIcon,
 };
 
-const CustomIcon: React.FC<{ icon: keyof typeof iconObj }> = ({ icon }) => {
-  return <img src={iconObj[icon]} alt={icon} />;
+const CustomIcon: React.FC<{ icon: keyof typeof iconObj; size: number }> = ({
+  icon,
+  size,
+}) => {
+  return <img src={iconObj[icon]} alt={icon} width={size} height={size} />;
 };
 
 export default CustomIcon;

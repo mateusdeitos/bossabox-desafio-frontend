@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { windowLargerThan500px } from '../../styles/breakpoints';
 
 export const Checkmark = styled.span`
   height: 15px;
@@ -13,7 +14,6 @@ export const Container = styled.label`
   display: flex;
   align-items: center;
   flex-direction: row-reverse;
-  margin-left: 8px;
   cursor: pointer;
   font-weight: 600;
   -webkit-user-select: none;
@@ -23,6 +23,10 @@ export const Container = styled.label`
   height: 50px;
   margin-top: auto;
   margin-bottom: auto;
+
+  ${windowLargerThan500px(css`
+    margin-left: 8px;
+  `)}
 
   p {
     font-size: 16px;

@@ -1,12 +1,19 @@
 import styled, { css } from 'styled-components';
+import { windowLargerThan500px } from '../../styles/breakpoints';
 
 export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   margin: 16px 0;
+
+  ${windowLargerThan500px(
+    css`
+      justify-content: center;
+    `,
+  )}
 `;
 
 export const NavButton = styled.button<{ prevOrNext: 'prev' | 'next' }>`
@@ -51,21 +58,19 @@ export const NavButton = styled.button<{ prevOrNext: 'prev' | 'next' }>`
           `};
   }
 
-  &:not([disabled]):hover:after {
-    transform: scaleX(1);
-  }
-
   &:disabled {
     color: #9aaef7;
     cursor: not-allowed;
   }
+  ${windowLargerThan500px(css`
+    &:not([disabled]):hover:after {
+      transform: scaleX(1);
+    }
+  `)}
 `;
 
 export const PageButton = styled.button<{ selected: boolean }>`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  display: none;
   font-size: 18px;
   font-weight: 600;
   color: #365df0;
@@ -73,7 +78,6 @@ export const PageButton = styled.button<{ selected: boolean }>`
   height: 35px;
   border-radius: 50%;
   border-color: transparent;
-  background: transparent;
   transition: all 0.4s;
 
   &:disabled {
@@ -91,10 +95,12 @@ export const PageButton = styled.button<{ selected: boolean }>`
   & + & {
     margin-left: 4px;
   }
+  background: ${({ selected }) => (selected ? '#ebeaed' : 'transparent')};
 
-  ${({ selected }) =>
-    selected &&
-    css`
-      background: #ebeaed;
-    `}
+  ${windowLargerThan500px(css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  `)}
 `;

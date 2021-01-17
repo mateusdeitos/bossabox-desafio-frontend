@@ -1,15 +1,12 @@
 import ReactModal from 'react-modal';
 import styled, { keyframes } from 'styled-components';
 
-const appearFromBottom = keyframes`
-
+const opacity = keyframes`
   from {
       opacity: 0;
-      transform: translateY(-50px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 `;
 export const CustomModal = styled(ReactModal)`
@@ -17,7 +14,8 @@ export const CustomModal = styled(ReactModal)`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 
-  animation: ${appearFromBottom} 1s ease forwards;
+  animation: ${opacity} 1s ease forwards;
   max-width: 100vw;
 `;

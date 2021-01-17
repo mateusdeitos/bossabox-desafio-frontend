@@ -43,7 +43,7 @@ const ConfirmationModal: React.FC<IProps> = ({
         <ModalFooter>
           <Button
             styleProps={{
-              order: 'terciary',
+              order: 'secondary',
               type: 'neutral',
               width: 'normal',
             }}
@@ -53,8 +53,8 @@ const ConfirmationModal: React.FC<IProps> = ({
           </Button>
           <Button
             styleProps={{
-              order: 'terciary',
-              type: 'danger',
+              order: 'primary',
+              type: 'neutral',
               width: 'normal',
             }}
             onClick={handleConfirm}

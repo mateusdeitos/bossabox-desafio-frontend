@@ -1,7 +1,19 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+import { windowLargerThan500px } from '../../styles/breakpoints';
 
+const appearFromBottom = keyframes`
+
+  from {
+      opacity: 0;
+      transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 export const Container = styled.div`
-  width: 100%;
+  width: 100vw;
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -9,6 +21,8 @@ export const Container = styled.div`
   max-width: 600px;
   box-shadow: 0px 20px 25px #0000001a;
   padding: 20px;
+  margin-top: auto;
+  animation: ${appearFromBottom} 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
   form {
     display: flex;
     flex-direction: column;
@@ -19,7 +33,16 @@ export const Container = styled.div`
 
   button {
     margin-top: 16px;
+    margin-left: 4px;
   }
+
+  ${windowLargerThan500px(css`
+    margin: 0 auto;
+    width: 100%;
+    button {
+      margin-left: 29px;
+    }
+  `)}
 `;
 
 export const ModalTitle = styled.div`

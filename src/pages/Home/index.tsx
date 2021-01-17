@@ -6,7 +6,7 @@ import Header from '../../components/Header';
 import CustomIcon from '../../components/Icon';
 import Input from '../../components/TextInput';
 import PageTemplate from '../../components/PageTemplate';
-import { ActionsContainer, CardsContainer } from './styles';
+import { ActionsContainer, CardsContainer, SearchButton } from './styles';
 import Button from '../../components/Button';
 import Card from '../../components/ToolCard';
 import Checkbox from '../../components/CheckboxInput/index';
@@ -135,15 +135,22 @@ const Home: React.FC = () => {
       <ActionsContainer>
         <Form ref={formRef} onSubmit={dados => handleSubmit(dados)}>
           <Input name="search" placeholder="search" disableBrowserAutoComplete>
-            <CustomIcon icon="search" />
+            <CustomIcon icon="search" size={15} />
           </Input>
           <Checkbox name="searchByTags" label="search in tags only" />
         </Form>
+        <SearchButton
+          styleProps={{ order: 'terciary', type: 'success' }}
+          onClick={() => formRef.current?.submitForm()}
+        >
+          <CustomIcon icon="search" size={12} />
+          Search
+        </SearchButton>
         <Button
           styleProps={{ order: 'terciary', type: 'neutral' }}
           onClick={() => setModalOpen(true)}
         >
-          <CustomIcon icon="add" />
+          <CustomIcon icon="add" size={12} />
           Add
         </Button>
       </ActionsContainer>

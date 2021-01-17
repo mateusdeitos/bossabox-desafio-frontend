@@ -1,4 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
+import { windowLargerThan500px } from '../../styles/breakpoints';
+import { buttonWidth } from '../Button/styles';
 
 const appearFromBottom = keyframes`
 
@@ -43,10 +45,32 @@ export const CardTitleContainer = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 8px;
+
+  button {
+    width: unset;
+    img {
+      margin-right: unset;
+    }
+    span {
+      display: none;
+    }
+  }
+
+  ${windowLargerThan500px(
+    css`
+      button {
+        width: ${buttonWidth.normal}px;
+        img {
+          margin-right: 18px;
+        }
+        span {
+          display: initial;
+        }
+      }
+    `,
+  )}
 `;
-export const CardTitle = styled.a`
-  font-size: 24px;
-`;
+export const CardTitle = styled.a``;
 export const CardDescription = styled.p`
   margin-bottom: 8px;
   overflow-wrap: break-word;
@@ -60,6 +84,12 @@ export const CardTag = styled.strong<{ highlighted: boolean }>`
     css`
       background-color: yellow;
     `}
+
+  font-size: 12px;
+
+  ${windowLargerThan500px(css`
+    font-size: initial;
+  `)}
   cursor: pointer;
   transition: all 0.4s;
   &:hover {

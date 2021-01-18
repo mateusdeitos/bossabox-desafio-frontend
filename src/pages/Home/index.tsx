@@ -11,7 +11,7 @@ import Button from '../../components/Button';
 import Card from '../../components/ToolCard';
 import Checkbox from '../../components/CheckboxInput/index';
 import useApi from '../../hooks/useApi';
-import NewToolModal from '../NewToolModal';
+import NewToolModal from '../NewTool';
 import Pagination from '../../components/Pagination';
 import SkeletonCard from '../../components/ToolCard/skeleton';
 

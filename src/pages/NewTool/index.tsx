@@ -4,6 +4,7 @@ import React, { useCallback, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import Input from '../../components/TextInput';
+import TagInput from '../../components/TagInput';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal/Base';
 import { Container, ModalFooter, ModalTitle } from './styles';
@@ -87,7 +88,7 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
             fillWidth
             disableBrowserAutoComplete
           />
-          <Input
+          <TagInput
             name="tags"
             label="Tags (comma separated)"
             isRequired

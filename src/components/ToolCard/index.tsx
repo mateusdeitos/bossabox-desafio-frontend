@@ -2,6 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState } from 'react';
+import { useContextBanner } from '../../hooks/useContextBanner';
 import api from '../../services/api';
 import Button from '../Button';
 import ConfirmationModal from '../ConfirmationModal';
@@ -39,9 +40,15 @@ const Card: React.FC<ICardProps> = ({
   reloadList,
 }) => {
   const [isOpen, showConfirmation] = useState(false);
+  const { addErrorBanner, addSuccessBanner } = useContextBanner();
   const deleteTool = async () => {
-    await api.delete(`/v1/tools/${id}`);
-    reloadList();
+    try {
+      await api.delete(`/v1/tools/${id}`);
+      addSuccessBanner({ message: 'Tool removed successfully' });
+      reloadList();
+    } catch (error) {
+      addErrorBanner({ message: error.response.data.message });
+    }
   };
 
   return (

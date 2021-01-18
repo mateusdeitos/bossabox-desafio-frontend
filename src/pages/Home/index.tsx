@@ -14,6 +14,7 @@ import useApi from '../../hooks/useApi';
 import NewToolModal from '../NewTool';
 import Pagination from '../../components/Pagination';
 import SkeletonCard from '../../components/ToolCard/skeleton';
+import { useContextBanner } from '../../hooks/useContextBanner';
 
 interface Tool {
   id: number;
@@ -54,6 +55,7 @@ const Home: React.FC = () => {
   const [tools, setTools] = useState<Tool[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [tagsToHighlight, setTagsToHighlight] = useState<string[]>([]);
+  const { addBanner } = useContextBanner();
   const { status, data, error, reloadFetch } = useApi<
     ToolsApiResponse,
     QueryParams
@@ -110,18 +112,32 @@ const Home: React.FC = () => {
     handleSubmit({ search, searchByTags: true });
   };
 
+  const resetFetch = () => {
+    formRef.current?.clearField('search');
+    formRef.current?.clearField('searchByTags');
+    formRef.current?.submitForm();
+  };
+
   useEffect(() => {
     if (status === 'DONE') {
       if (data) {
         const { results, totalResults } = data;
         setTools(results);
         setTotalPages(Math.ceil(totalResults / currentLimit));
+        if (totalResults <= 0) {
+          addBanner({
+            type: 'WARNING',
+            message: 'Nothing was found...',
+            customButtom: { label: 'Reset search', action: resetFetch },
+          });
+        }
       }
     }
 
     if (status === 'ERROR') {
       setErrorMessage(error || 'Ocorreu um erro inesperado');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLimit, data, error, status]);
 
   return (

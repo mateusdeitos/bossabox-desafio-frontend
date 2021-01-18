@@ -13,6 +13,7 @@ import api from '../../services/api';
 import { INewToolFormData } from './dto/INewToolFormData';
 import { validationSchema } from './validation';
 import getValidationErrors from '../../utils/getValidationErrors';
+import { useContextBanner } from '../../hooks/useContextBanner';
 
 interface Tool {
   id: number;
@@ -30,7 +31,7 @@ interface IProps {
 
 const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
   const formRef = useRef<FormHandles>(null);
-
+  const { addBanner } = useContextBanner();
   const handleSubmit = useCallback(
     async (data: INewToolFormData) => {
       try {
@@ -40,6 +41,10 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
         });
         await api.post('/v1/tools', data);
         setIsOpen(false);
+        addBanner({
+          type: 'SUCCESS',
+          message: `Tool ${data.title} added successfully.`,
+        });
         reloadList();
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
@@ -47,11 +52,15 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
 
           formRef.current?.setErrors(errors);
         } else {
-          // TODO: exibir erro
+          addBanner({
+            type: 'ERROR',
+            message: error.response.data.message,
+            duration: 6000,
+          });
         }
       }
     },
-    [reloadList, setIsOpen],
+    [addBanner, reloadList, setIsOpen],
   );
 
   return (

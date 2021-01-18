@@ -16,7 +16,6 @@ export const Container = styled.div<InputProps>`
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-
   margin-top: 12px;
   ${({ fillWidth }) =>
     fillWidth
@@ -59,13 +58,14 @@ export const InputContainer = styled.div<ContainerProps & InputProps>`
   align-items: center;
   transition: all 0.4s;
   background: #f5f4f6;
+  min-height: 32px;
   border: 1px solid #ebeaed;
   border-radius: 5px;
   color: #170c3a;
-  padding: 5px 10px;
+  padding-left: 5px;
   width: 100%;
 
-  input {
+  textarea {
     font-family: 'Source Sans Pro', sans-serif;
     color: #170c3a;
     background-color: transparent;
@@ -80,8 +80,8 @@ export const InputContainer = styled.div<ContainerProps & InputProps>`
 
   ${windowLargerThan500px(
     css`
-      padding: 12.5px 20px;
-
+      padding-left: 12.5px;
+      min-height: 50px;
       img {
         width: 20px;
         height: 20px;

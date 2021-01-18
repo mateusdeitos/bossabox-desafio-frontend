@@ -14,6 +14,7 @@ import { INewToolFormData } from './dto/INewToolFormData';
 import { validationSchema } from './validation';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { useContextBanner } from '../../hooks/useContextBanner';
+import TextArea from '../../components/TextAreaInput';
 
 interface Tool {
   id: number;
@@ -90,7 +91,7 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
             fillWidth
             disableBrowserAutoComplete
           />
-          <Input
+          <TextArea
             name="description"
             label="Tool Description"
             isRequired

@@ -25,7 +25,7 @@ export const Container = styled.div`
   }
 
   ${windowLargerThan500px(css`
-    padding: 40px;
+    padding-top: 40px;
     height: initial;
     width: 100%;
   `)}
@@ -54,7 +54,7 @@ export const ModalFooter = styled.div`
   align-items: center;
   justify-content: flex-end;
   margin-top: auto;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   width: 100%;
   button {
     margin-left: 4px;

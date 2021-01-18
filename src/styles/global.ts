@@ -121,5 +121,15 @@ export default createGlobalStyle`
         font-size: 20px;
       `)}
     }
+    textarea {
+      font-weight: normal;
+      font-size: 16px;
+      letter-spacing: 0px;
+      color: #170c3a;
+
+      ${windowLargerThan500px(css`
+        font-size: 20px;
+      `)}
+    }
 
 `;

@@ -12,6 +12,9 @@ interface ContextBannerContainerProps {
 const ContextBannerContainer: React.FC<ContextBannerContainerProps> = ({
   messages,
 }) => {
+  if (!messages || messages.length === 0) {
+    return <></>;
+  }
   return (
     <Container>
       {messages.map(({ id, message, customButtom, type, duration }) => (

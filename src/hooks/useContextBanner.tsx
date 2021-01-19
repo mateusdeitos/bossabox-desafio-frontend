@@ -53,8 +53,8 @@ const ContextBannerProvider: React.FC = ({ children }) => {
     <MessageContext.Provider
       value={{ addBanner, addErrorBanner, addSuccessBanner, cancelBanner }}
     >
-      {children}
       <ContextBannerContainer messages={messages} />
+      {children}
     </MessageContext.Provider>
   );
 };

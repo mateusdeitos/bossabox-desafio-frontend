@@ -32,7 +32,7 @@ interface IProps {
 
 const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
   const formRef = useRef<FormHandles>(null);
-  const { addBanner } = useContextBanner();
+  const { addErrorBanner, addSuccessBanner } = useContextBanner();
   const handleSubmit = useCallback(
     async (data: INewToolFormData) => {
       try {
@@ -42,10 +42,7 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
         });
         await api.post('/v1/tools', data);
         setIsOpen(false);
-        addBanner({
-          type: 'SUCCESS',
-          message: `Tool ${data.title} added successfully.`,
-        });
+        addSuccessBanner(`Tool ${data.title} added successfully.`);
         reloadList();
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
@@ -53,15 +50,11 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
 
           formRef.current?.setErrors(errors);
         } else {
-          addBanner({
-            type: 'ERROR',
-            message: error.response.data.message,
-            duration: 6000,
-          });
+          addErrorBanner(error.response.data.message);
         }
       }
     },
-    [addBanner, reloadList, setIsOpen],
+    [addErrorBanner, addSuccessBanner, reloadList, setIsOpen],
   );
 
   return (
@@ -97,6 +90,8 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
             isRequired
             fillWidth
             disableBrowserAutoComplete
+            minLength={30}
+            maxLength={250}
           />
           <TagInput
             name="tags"

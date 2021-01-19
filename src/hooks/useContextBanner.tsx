@@ -5,8 +5,8 @@ import ContextBannerContainer from '../components/ContextBanner/BannerContainer/
 
 interface MessageContextData {
   addBanner(message: Omit<IContextBannerProps, 'id'>): void;
-  addErrorBanner(message: Omit<IContextBannerProps, 'id' | 'type'>): void;
-  addSuccessBanner(message: Omit<IContextBannerProps, 'id' | 'type'>): void;
+  addErrorBanner(message: string): void;
+  addSuccessBanner(message: string): void;
   cancelBanner(id: string): void;
 }
 
@@ -26,16 +26,19 @@ const ContextBannerProvider: React.FC = ({ children }) => {
   );
 
   const addErrorBanner = useCallback(
-    (message: Omit<IContextBannerProps, 'id' | 'type'>) => {
+    (message: string) => {
       const id = v4();
-      setMessages([...messages, { ...message, id, type: 'ERROR' }]);
+      setMessages([
+        ...messages,
+        { id, type: 'ERROR', message, duration: 6000 },
+      ]);
     },
     [messages],
   );
   const addSuccessBanner = useCallback(
-    (message: Omit<IContextBannerProps, 'id' | 'type'>) => {
+    (message: string) => {
       const id = v4();
-      setMessages([...messages, { ...message, id, type: 'SUCCESS' }]);
+      setMessages([...messages, { id, type: 'SUCCESS', message }]);
     },
     [messages],
   );

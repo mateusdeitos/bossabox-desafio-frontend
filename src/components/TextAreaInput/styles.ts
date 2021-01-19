@@ -72,6 +72,7 @@ export const InputContainer = styled.div<ContainerProps & InputProps>`
     border: unset;
     display: flex;
     width: 100%;
+    resize: vertical;
   }
 
   img {
@@ -111,12 +112,31 @@ export const InputContainer = styled.div<ContainerProps & InputProps>`
     `}
 `;
 
+export const Helpers = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`;
+
 export const Error = styled.span`
   font-size: 12px;
   font-family: 'Source Sans Pro', sans-serif;
   margin-top: 4px;
   margin-left: auto;
   color: #f95e5a;
+  letter-spacing: 0.36px;
+  ${windowLargerThan500px(
+    css`
+      font-size: 18px;
+    `,
+  )}
+`;
+export const CurrentLength = styled.span<{ hasError: boolean }>`
+  font-size: 12px;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin-top: 4px;
+  margin-right: auto;
+  color: ${({ hasError }) => (hasError ? '#f95e5a' : '#170c3a')};
   letter-spacing: 0.36px;
   ${windowLargerThan500px(
     css`

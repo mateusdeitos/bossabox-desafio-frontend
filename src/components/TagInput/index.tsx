@@ -29,7 +29,13 @@ const TagInput: React.FC<InputProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
-  const { fieldName, defaultValue, error, registerField } = useField(name);
+  const {
+    fieldName,
+    defaultValue,
+    error,
+    registerField,
+    clearError,
+  } = useField(name);
 
   const handleInputFocus = useCallback(
     (event: React.FocusEvent<HTMLInputElement>) => {
@@ -43,8 +49,9 @@ const TagInput: React.FC<InputProps> = ({
         event.currentTarget.value.length,
         event.currentTarget.value.length,
       );
+      clearError();
     },
-    [disableBrowserAutoComplete],
+    [clearError, disableBrowserAutoComplete],
   );
 
   const handleInputBlur = useCallback(() => {

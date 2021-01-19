@@ -44,10 +44,10 @@ const Card: React.FC<ICardProps> = ({
   const deleteTool = async () => {
     try {
       await api.delete(`/v1/tools/${id}`);
-      addSuccessBanner({ message: 'Tool removed successfully' });
+      addSuccessBanner('Tool removed successfully');
       reloadList();
     } catch (error) {
-      addErrorBanner({ message: error.response.data.message });
+      addErrorBanner(error.response.data.message);
     }
   };
 

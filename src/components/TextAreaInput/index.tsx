@@ -1,20 +1,26 @@
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable no-param-reassign */
 import { useField } from '@unform/core';
-import React, {
-  TextareaHTMLAttributes,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import TextAreaAutosize, {
+  TextareaAutosizeProps,
+} from 'react-textarea-autosize';
+import {
+  Container,
+  InputContainer,
+  Label,
+  Error,
+  CurrentLength,
+  Helpers,
+} from './styles';
 
-import { Container, InputContainer, Label, Error } from './styles';
-
-interface InputProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface InputProps extends TextareaAutosizeProps {
   name: string;
   label?: string;
   disableBrowserAutoComplete?: boolean;
   isRequired?: boolean;
   fillWidth?: boolean;
+  minLength?: number;
 }
 
 const TextArea: React.FC<InputProps> = ({
@@ -23,13 +29,22 @@ const TextArea: React.FC<InputProps> = ({
   isRequired = false,
   fillWidth = false,
   disableBrowserAutoComplete = false,
+  minLength = 0,
+  maxLength = 0,
   children,
   ...rest
 }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
-  const { fieldName, defaultValue, error, registerField } = useField(name);
+  const [currentLength, setCurrentLength] = useState(0);
+  const {
+    fieldName,
+    defaultValue,
+    error,
+    registerField,
+    clearError,
+  } = useField(name);
 
   const handleInputFocus = useCallback(
     (event: React.FocusEvent<HTMLTextAreaElement>) => {
@@ -43,8 +58,9 @@ const TextArea: React.FC<InputProps> = ({
         event.currentTarget.value.length,
         event.currentTarget.value.length,
       );
+      clearError();
     },
-    [disableBrowserAutoComplete],
+    [clearError, disableBrowserAutoComplete],
   );
 
   const handleInputBlur = useCallback(() => {
@@ -52,6 +68,9 @@ const TextArea: React.FC<InputProps> = ({
 
     setIsFilled(!!inputRef.current?.value);
   }, []);
+  const handleChangeTextContent = () => {
+    setCurrentLength(inputRef.current?.value?.length || 0);
+  };
 
   useEffect(() => {
     registerField({
@@ -75,10 +94,12 @@ const TextArea: React.FC<InputProps> = ({
         fillWidth={fillWidth}
       >
         {children}
-        <textarea
+        <TextAreaAutosize
           id={name}
           name={name}
-          rows={3}
+          rows={2}
+          maxLength={maxLength}
+          onChange={handleChangeTextContent}
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
           defaultValue={defaultValue}
@@ -86,7 +107,12 @@ const TextArea: React.FC<InputProps> = ({
           {...rest}
         />
       </InputContainer>
-      <Error hidden={!error}>{error}</Error>
+      <Helpers>
+        <CurrentLength hasError={currentLength < minLength}>
+          {currentLength}/{maxLength}
+        </CurrentLength>
+        <Error hidden={!error}>{error}</Error>
+      </Helpers>
     </Container>
   );
 };

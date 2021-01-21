@@ -14,7 +14,7 @@ const appearFromBottom = keyframes`
 `;
 export const Container = styled.div`
   width: 100vw;
-  background: #fff;
+  background: ${props => props.theme.colors.background};
   display: flex;
   flex-direction: column;
   align-items: center;

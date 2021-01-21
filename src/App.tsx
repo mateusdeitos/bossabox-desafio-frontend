@@ -3,17 +3,24 @@
 /* eslint-disable no-restricted-globals */
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/global';
 import Routes from './routes';
 import { ContextBannerProvider } from './hooks/useContextBanner';
+import { useDarkMode } from './hooks/useDarkMode';
+import themes from './styles/themes';
 
 const App = () => {
+  const { isDarkMode } = useDarkMode();
+  const { dark, light } = themes;
   return (
     <Router>
-      <ContextBannerProvider>
-        <GlobalStyle />
-        <Routes />
-      </ContextBannerProvider>
+      <ThemeProvider theme={isDarkMode ? dark : light}>
+        <ContextBannerProvider>
+          <GlobalStyle />
+          <Routes />
+        </ContextBannerProvider>
+      </ThemeProvider>
     </Router>
   );
 };

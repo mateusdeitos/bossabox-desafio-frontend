@@ -22,7 +22,7 @@ export const ActionsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
+  background: ${props => props.theme.colors.background};
   padding: 16px 0;
   form {
     display: flex;

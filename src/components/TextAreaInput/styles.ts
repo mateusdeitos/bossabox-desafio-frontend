@@ -57,22 +57,24 @@ export const InputContainer = styled.div<ContainerProps & InputProps>`
   flex-direction: row;
   align-items: center;
   transition: all 0.4s;
-  background: #f5f4f6;
+  background: ${props => props.theme.colors.input.background.base};
+  border: 1px solid ${props => props.theme.colors.input.borders.base};
   min-height: 32px;
-  border: 1px solid #ebeaed;
   border-radius: 5px;
-  color: #170c3a;
   padding-left: 5px;
   width: 100%;
 
   textarea {
     font-family: 'Source Sans Pro', sans-serif;
-    color: #170c3a;
+    color: ${props => props.theme.colors.textColor};
     background-color: transparent;
     border: unset;
     display: flex;
     width: 100%;
     resize: vertical;
+    &::placeholder {
+      color: ${props => props.theme.colors.input.placeholder};
+    }
   }
 
   img {
@@ -99,14 +101,14 @@ export const InputContainer = styled.div<ContainerProps & InputProps>`
   ${({ isFocused }) =>
     isFocused &&
     css`
-      background: #ebeaed;
-      border: 1px solid #dedce1;
+      background: ${props => props.theme.colors.input.background.focus};
+      border: 1px solid ${props => props.theme.colors.input.borders.focus};
       color: #170c3a;
     `}
   ${({ hasError }) =>
     hasError &&
     css`
-      background: #feefee;
+      background: ${props => props.theme.colors.input.background.base};
       border: 1px solid #f95e5a;
       color: #f95e5a;
     `}

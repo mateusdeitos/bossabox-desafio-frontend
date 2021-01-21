@@ -6,7 +6,25 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: flex-start;
-  background-color: #fff;
+  background-color: ${props => props.theme.colors.background};
+`;
+export const TitleContainer = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+
+  button {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+
+    svg {
+      color: ${props => props.theme.colors.colorModeButton.icon};
+      margin-right: 8px;
+    }
+  }
 `;
 export const HeaderTitle = styled.h1`
   text-transform: uppercase;

@@ -17,9 +17,9 @@ const appearFromBottom = keyframes`
 export const Container = styled.div<{ delayAnimation: number }>`
   width: 100%;
   min-height: 150px;
-  background: #fff;
+  background: ${props => props.theme.colors.cardBackground};
   box-shadow: 0px 5px 7px #0000000d;
-  border: 1px solid #ebeaed;
+  border: 1px solid ${props => props.theme.colors.borders};
   border-radius: 5px;
   padding: 16px;
   opacity: 0;
@@ -82,6 +82,7 @@ export const CardTag = styled.strong<{ highlighted: boolean }>`
   ${({ highlighted }) =>
     highlighted &&
     css`
+      color: ${props => props.theme.colors.tagTextSelected};
       background-color: yellow;
     `}
 
@@ -93,6 +94,7 @@ export const CardTag = styled.strong<{ highlighted: boolean }>`
   cursor: pointer;
   transition: all 0.4s;
   &:hover {
+    color: ${props => props.theme.colors.tagTextSelected};
     background-color: yellow;
   }
   &:after {

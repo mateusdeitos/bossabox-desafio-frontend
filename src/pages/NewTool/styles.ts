@@ -4,7 +4,7 @@ import { windowLargerThan500px } from '../../styles/breakpoints';
 export const Container = styled.div`
   height: 100vh;
   width: 100vw;
-  background: #fff;
+  background: ${props => props.theme.colors.background};
   display: flex;
   flex-direction: column;
   align-items: center;

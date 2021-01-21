@@ -1,7 +1,8 @@
 import { createGlobalStyle, css } from 'styled-components';
 import { windowLargerThan500px } from './breakpoints';
+import { ITheme } from './themes';
 
-export default createGlobalStyle`
+export default createGlobalStyle<{ theme: ITheme }>`
 
     * {
       margin: 0;
@@ -11,8 +12,8 @@ export default createGlobalStyle`
     }
 
     body {
-      background: #FFF;
-      color: #170C3A;
+      background: ${props => props.theme.colors.background};
+      color: ${props => props.theme.colors.textColor};
       --webkit-font-smoothing: antialiased;
       font-family: 'Source Sans Pro', sans-serif;
       font-weight: 400;
@@ -26,7 +27,7 @@ export default createGlobalStyle`
     h1, h2, h3, h4, h5 {
       font-family: 'Source Sans Pro', sans-serif;
       font-weight: 600;
-      color:  #170C3A ;
+      color: ${props => props.theme.colors.textColor};
     }
 
     h1 {
@@ -71,12 +72,13 @@ export default createGlobalStyle`
     }
     strong {
       font-weight: 700;
+      color: ${props => props.theme.colors.textColor};
     }
 
     p {
       letter-spacing: 0.4px;
       font-family: 'Source Sans Pro', sans-serif;
-      color: #170C3A;
+      color: ${props => props.theme.colors.textColor};
       opacity: 1;
       font-size: 18px;
 
@@ -93,11 +95,12 @@ export default createGlobalStyle`
       ${windowLargerThan500px(css`
         font-size: 24px;
       `)}
+      color: ${props => props.theme.colors.linkColor};
     }
 
     label {
       font-family: 'Source Sans Pro', sans-serif;
-      color: #170C3A;
+      color: ${props => props.theme.colors.textColor};
       font-weight: normal;
       font-size: 12px;
       letter-spacing: 0px;
@@ -115,7 +118,7 @@ export default createGlobalStyle`
       font-weight: normal;
       font-size: 16px;
       letter-spacing: 0px;
-      color: #170c3a;
+      color: ${props => props.theme.colors.textColor};
 
       ${windowLargerThan500px(css`
         font-size: 20px;
@@ -125,7 +128,7 @@ export default createGlobalStyle`
       font-weight: normal;
       font-size: 16px;
       letter-spacing: 0px;
-      color: #170c3a;
+      color: ${props => props.theme.colors.textColor};
 
       ${windowLargerThan500px(css`
         font-size: 20px;

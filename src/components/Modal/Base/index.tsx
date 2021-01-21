@@ -27,7 +27,6 @@ const Modal: React.FC<IModalProps> = ({ children, isOpen }) => {
           alignItems: 'center',
           justifyContent: 'center',
           flex: '1',
-          background: 'rgba(255,255,255,0.8)',
           zIndex: 10,
           padding: '8px',
         },

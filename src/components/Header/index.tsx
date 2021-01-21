@@ -24,7 +24,7 @@ const Header: React.FC = () => {
           onClick={toggleColorMode}
         >
           {isDarkMode ? <FiSun /> : <FiMoon />}
-          {isDarkMode ? 'Light mode' : 'Dark mode'}
+          <span>{isDarkMode ? 'Light mode' : 'Dark mode'}</span>
         </Button>
       </TitleContainer>
       <HeaderDescription>Very Useful Tools to Remember</HeaderDescription>

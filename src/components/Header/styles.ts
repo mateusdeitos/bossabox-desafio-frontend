@@ -16,14 +16,24 @@ export const TitleContainer = styled.div`
   align-items: baseline;
 
   button {
-    display: flex;
-    flex-direction: row;
-    /* justify-content: space-between; */
-
+    width: unset;
     svg {
       color: ${props => props.theme.colors.colorModeButton.icon};
-      margin-right: 8px;
+      margin-right: unset;
     }
+    span {
+      display: none;
+    }
+
+    ${windowLargerThan500px(css`
+      width: initial;
+      span {
+        display: initial;
+      }
+      svg {
+        margin-right: 8px;
+      }
+    `)}
   }
 `;
 export const HeaderTitle = styled.h1`

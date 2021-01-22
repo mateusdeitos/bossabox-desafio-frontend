@@ -9,7 +9,6 @@ import TagInput from '../../components/TagInput';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal/Base';
 import { Container, ModalFooter, ModalTitle } from './styles';
-import CustomIcon from '../../components/Icon';
 import api from '../../services/api';
 import { INewToolFormData } from './dto/INewToolFormData';
 import { validationSchema } from './validation';

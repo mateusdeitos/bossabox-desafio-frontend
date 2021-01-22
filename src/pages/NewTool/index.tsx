@@ -3,6 +3,7 @@ import { Form } from '@unform/web';
 import React, { useCallback, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import { FiPlusSquare } from 'react-icons/fi';
 import Input from '../../components/TextInput';
 import TagInput from '../../components/TagInput';
 import Button from '../../components/Button';
@@ -61,7 +62,7 @@ const NewToolModal: React.FC<IProps> = ({ isOpen, setIsOpen, reloadList }) => {
     <Modal isOpen={isOpen}>
       <Container>
         <ModalTitle>
-          <CustomIcon icon="add" size={20} />
+          <FiPlusSquare size={20} />
           <h3>Add new Tool</h3>
         </ModalTitle>
         <Form

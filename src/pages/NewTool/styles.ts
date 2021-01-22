@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { windowLargerThan500px } from '../../styles/breakpoints';
 
 export const Container = styled.div`
-  height: 100vh;
+  height: 95vh;
   width: 100vw;
   background: ${props => props.theme.colors.background};
   display: flex;
@@ -38,9 +38,8 @@ export const ModalTitle = styled.div`
   width: 100%;
   justify-content: flex-start;
   margin-bottom: 16px;
-  img {
-    width: 20px;
-    height: 20px;
+  svg {
+    color: ${props => props.theme.colors.textColor};
     margin-right: 8px;
   }
   h3 {
@@ -54,7 +53,7 @@ export const ModalFooter = styled.div`
   align-items: center;
   justify-content: flex-end;
   margin-top: auto;
-  margin-bottom: 4px;
+  margin-bottom: 16px;
   width: 100%;
   button {
     margin-left: 4px;

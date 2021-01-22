@@ -28,7 +28,7 @@ export const Container = styled.div`
   }
 
   ${windowLargerThan500px(css`
-    position: initial;
+    position: unset;
     top: unset;
     left: unset;
     right: unset;

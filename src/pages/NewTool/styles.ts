@@ -2,8 +2,11 @@ import styled, { css } from 'styled-components';
 import { windowLargerThan500px } from '../../styles/breakpoints';
 
 export const Container = styled.div`
-  height: 95vh;
-  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: ${props => props.theme.colors.background};
   display: flex;
   flex-direction: column;
@@ -37,7 +40,7 @@ export const ModalTitle = styled.div`
   align-items: center;
   width: 100%;
   justify-content: flex-start;
-  margin-bottom: 16px;
+  margin-bottom: 4px;
   svg {
     color: ${props => props.theme.colors.textColor};
     margin-right: 8px;

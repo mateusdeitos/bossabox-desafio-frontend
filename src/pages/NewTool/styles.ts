@@ -28,6 +28,11 @@ export const Container = styled.div`
   }
 
   ${windowLargerThan500px(css`
+    position: initial;
+    top: unset;
+    left: unset;
+    right: unset;
+    bottom: unset;
     padding-top: 40px;
     height: initial;
     width: 100%;

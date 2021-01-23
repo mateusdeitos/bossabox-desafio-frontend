@@ -1,5 +1,3 @@
-# bossabox-desafio-frontend
-
 # O que é esse repositório?
 VUTTR -> Very Useful Tools To Remember é um desafio de frontend proposto pela bossabox. A aplicação consiste em um web app para armazenar ferramentas úteis como google keep, notion, etc.
 

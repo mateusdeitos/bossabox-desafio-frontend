@@ -14,7 +14,7 @@ const Header: React.FC = () => {
   return (
     <Container>
       <TitleContainer>
-        <HeaderTitle>VUTTR</HeaderTitle>
+        <HeaderTitle>Teste deploy</HeaderTitle>
         <Button
           styleProps={{
             type: isDarkMode ? 'success' : 'neutral',

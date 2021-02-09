@@ -4,41 +4,35 @@ import Button from '../Button';
 import Modal from '../Modal/Base';
 import { Container, ModalTitle, ModalMessage, ModalFooter } from './styles';
 
-interface ModalData {
+export interface ConfirmationOptions {
+  catchOnCancel?: boolean;
   title: string;
-  message: string;
+  description: string;
   confirmationButtonMessage: string;
-  onConfirm(...args: unknown[]): void;
+}
+interface ConfirmationDialogProps extends ConfirmationOptions {
+  open: boolean;
+  onSubmit: () => void;
+  onClose: () => void;
+  onClosed: () => void;
 }
 
-interface IProps {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  reloadList?(): void;
-  options: ModalData;
-}
-
-const ConfirmationModal: React.FC<IProps> = ({
-  isOpen,
-  setIsOpen,
-  reloadList,
-  options,
+const ConfirmationModal: React.FC<ConfirmationDialogProps> = ({
+  open,
+  title,
+  description,
+  onSubmit,
+  onClose,
+  onClosed,
+  confirmationButtonMessage,
 }) => {
-  const { onConfirm, title, message, confirmationButtonMessage } = options;
-  const handleConfirm = useCallback(() => {
-    onConfirm();
-    setIsOpen(false);
-    if (reloadList) {
-      reloadList();
-    }
-  }, [onConfirm, reloadList, setIsOpen]);
   return (
-    <Modal isOpen={isOpen}>
+    <Modal isOpen={open}>
       <Container>
         <ModalTitle>
           <h3>{title}</h3>
         </ModalTitle>
-        <ModalMessage>{message}</ModalMessage>
+        <ModalMessage>{description}</ModalMessage>
 
         <ModalFooter>
           <Button
@@ -47,7 +41,10 @@ const ConfirmationModal: React.FC<IProps> = ({
               type: 'neutral',
               width: 'normal',
             }}
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              onClosed();
+              onClose();
+            }}
           >
             Cancel
           </Button>
@@ -57,7 +54,7 @@ const ConfirmationModal: React.FC<IProps> = ({
               type: 'neutral',
               width: 'normal',
             }}
-            onClick={handleConfirm}
+            onClick={onSubmit}
           >
             {confirmationButtonMessage}
           </Button>

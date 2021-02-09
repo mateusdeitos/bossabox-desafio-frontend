@@ -9,6 +9,7 @@ import Routes from './routes';
 import { ContextBannerProvider } from './hooks/useContextBanner';
 import { useDarkMode } from './hooks/useDarkMode';
 import themes from './styles/themes';
+import { ConfirmationServiceProvider } from './hooks/useConfirmation';
 
 const App = () => {
   const { isDarkMode } = useDarkMode();
@@ -16,10 +17,12 @@ const App = () => {
   return (
     <Router>
       <ThemeProvider theme={isDarkMode ? dark : light}>
-        <ContextBannerProvider>
-          <GlobalStyle />
-          <Routes />
-        </ContextBannerProvider>
+        <ConfirmationServiceProvider>
+          <ContextBannerProvider>
+            <GlobalStyle />
+            <Routes />
+          </ContextBannerProvider>
+        </ConfirmationServiceProvider>
       </ThemeProvider>
     </Router>
   );

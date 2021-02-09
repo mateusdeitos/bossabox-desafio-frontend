@@ -1,11 +1,8 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { useState } from 'react';
-import { useContextBanner } from '../../hooks/useContextBanner';
-import api from '../../services/api';
-import Button from '../Button';
-import ConfirmationModal from '../ConfirmationModal';
+import React from 'react';
+import ApiActionButton from '../ApiActionButton';
 import CustomIcon from '../Icon';
 import {
   Container,
@@ -39,41 +36,28 @@ const Card: React.FC<ICardProps> = ({
   onTagClick,
   reloadList,
 }) => {
-  const [isOpen, showConfirmation] = useState(false);
-  const { addErrorBanner, addSuccessBanner } = useContextBanner();
-  const deleteTool = async () => {
-    try {
-      await api.delete(`/v1/tools/${id}`);
-      addSuccessBanner('Tool removed successfully');
-      reloadList();
-    } catch (error) {
-      addErrorBanner(error.response.data.message);
-    }
-  };
-
   return (
     <Container key={id} delayAnimation={delayAnimation}>
-      <ConfirmationModal
-        isOpen={isOpen}
-        setIsOpen={showConfirmation}
-        options={{
-          confirmationButtonMessage: 'Yes, remove.',
-          message: `Are you sure you want to remove ${title}?`,
-          onConfirm: deleteTool,
-          title: 'Remove tool',
-        }}
-      />
       <CardTitleContainer>
         <CardTitle target="_blank" rel="noreferrer" href={url}>
           {title}
         </CardTitle>
-        <Button
+        <ApiActionButton
+          apiOptions={{
+            method: 'delete',
+            url: `/v1/tools/${id}`,
+            callback: reloadList,
+            successMessage: 'Tool removed successfully',
+          }}
+          confirmationOptions={{
+            title: 'Remove Tool',
+            message: `Are you sure you want to delete ${title}?`,
+          }}
           styleProps={{ order: 'terciary', type: 'danger' }}
-          onClick={() => showConfirmation(true)}
         >
           <CustomIcon icon="remove" size={12} />
           <span>remove</span>
-        </Button>
+        </ApiActionButton>
       </CardTitleContainer>
       <CardDescription>{description}</CardDescription>
       <CardTagsContainer>

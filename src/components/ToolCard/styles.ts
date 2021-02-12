@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import { windowLargerThan500px } from '../../styles/breakpoints';
-import { buttonWidth } from '../Button/styles';
+import { buttonWidth, Container as ButtonContainer } from '../Button/styles';
 
 const appearFromBottom = keyframes`
 
@@ -46,7 +46,7 @@ export const CardTitleContainer = styled.div`
   justify-content: space-between;
   margin-bottom: 8px;
 
-  button {
+  ${ButtonContainer} {
     width: unset;
     img {
       margin-right: unset;
@@ -58,7 +58,7 @@ export const CardTitleContainer = styled.div`
 
   ${windowLargerThan500px(
     css`
-      button {
+      ${ButtonContainer} {
         width: ${buttonWidth.normal}px;
         img {
           margin-right: 18px;

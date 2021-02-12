@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import React, { useCallback } from 'react';
+import React from 'react';
 import Button from '../Button';
 import Modal from '../Modal/Base';
 import { Container, ModalTitle, ModalMessage, ModalFooter } from './styles';

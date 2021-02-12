@@ -22,7 +22,6 @@ interface ApiOptions {
   method: 'delete' | 'post' | 'put';
   callback?(...args: unknown[]): void;
   onErrorCallback?(...args: unknown[]): void;
-  validationCallback?(...args: unknown[]): void;
   successMessage: string;
   errorMessage?: string;
 }
@@ -39,7 +38,6 @@ const ApiActionButton: React.FC<ButtonProps> = ({
     method,
     callback,
     onErrorCallback,
-    validationCallback,
     successMessage,
     errorMessage,
   } = apiOptions;
@@ -60,9 +58,6 @@ const ApiActionButton: React.FC<ButtonProps> = ({
   }, [method]);
   const callApi = useCallback(async () => {
     try {
-      if (validationCallback) {
-        await validationCallback();
-      }
       setIsLoading(true);
       await getAxiosCallback()(url);
       addSuccessBanner(successMessage);
@@ -87,7 +82,6 @@ const ApiActionButton: React.FC<ButtonProps> = ({
     onErrorCallback,
     successMessage,
     url,
-    validationCallback,
   ]);
 
   const handleAction = useCallback(() => {

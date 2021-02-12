@@ -269,7 +269,12 @@ export const Container = styled.button<ButtonStyleProps>`
     const width = classProps?.width || 'normal';
     return css`
       ${stylesObj[order][type]};
-      width: ${buttonWidth[width]}px;
+
+      ${windowLargerThan500px(
+        css`
+          width: ${buttonWidth[width]}px;
+        `,
+      )}
     `;
   }}
 `;

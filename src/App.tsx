@@ -12,11 +12,10 @@ import themes from './styles/themes';
 import { ConfirmationServiceProvider } from './hooks/useConfirmation';
 
 const App = () => {
-  const { isDarkMode } = useDarkMode();
-  const { dark, light } = themes;
+  const { currentTheme } = useDarkMode();
   return (
     <Router>
-      <ThemeProvider theme={isDarkMode ? dark : light}>
+      <ThemeProvider theme={currentTheme}>
         <ConfirmationServiceProvider>
           <ContextBannerProvider>
             <GlobalStyle />
